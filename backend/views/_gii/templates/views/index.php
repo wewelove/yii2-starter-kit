@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php echo "<?php\n"; ?>
 Pjax::begin([
-    'id' => 'grid-user-pjax',
+    'id' => 'grid-<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-pjax',
     'timeout' => 5000,
 ]);
 ?>
@@ -104,7 +104,7 @@ Pjax::begin([
 
 </div>
 
-<?php echo "<?php\n"; ?> Pjax::end(); ?>
+<?php echo "<?php"; ?> Pjax::end(); ?>
 
 <?php echo "<?php\n"; ?>
 echo ModalAjax::widget([
@@ -113,6 +113,6 @@ echo ModalAjax::widget([
     'header' => '',
     'size' => 'modal-lg',
     'autoClose' => true,
-    'pjaxContainer' => '#grid-user-pjax'
+    'pjaxContainer' => '#grid-<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-pjax'
 ]);
 ?>

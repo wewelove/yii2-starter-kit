@@ -29,21 +29,26 @@ use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
-    <?php echo "<?php " ?>$form = ActiveForm::begin(['layout' => ActiveForm::LAYOUT_HORIZONTAL]); ?>
-        <div class="card">
-            <div class="card-body">
-                <?php echo "<?php echo " ?>$form->errorSummary($model); ?>
+    <?php echo "<?php\n " ?>
+    $form = ActiveForm::begin([
+        'layout' => ActiveForm::LAYOUT_HORIZONTAL,
+        'enableClientValidation' => false,
+        'enableAjaxValidation' => true
+    ]); 
+    ?>
+    <div class="card">
+        <div class="card-body">
 
-                <?php foreach ($generator->getColumnNames() as $attribute) {
-                    if (in_array($attribute, $safeAttributes)) {
-                        echo "<?php echo " . $generator->generateActiveField($attribute) . " ?>\n                ";
-                    }
-                } ?>
+            <?php foreach ($generator->getColumnNames() as $attribute) {
+                if (in_array($attribute, $safeAttributes)) {
+                    echo "<?php echo " . $generator->generateActiveField($attribute) . " ?>\n                ";
+                }
+            } ?>
 
-            </div>
-            <div class="card-footer">
-                <?php echo "<?php echo " ?>Html::submitButton($model->isNewRecord ? <?php echo $generator->generateString('Create') ?> : <?php echo $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-            </div>
         </div>
+        <div class="card-footer">
+            <?php echo "<?php echo " ?>Html::submitButton($model->isNewRecord ? <?php echo $generator->generateString('Create') ?> : <?php echo $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+    </div>
     <?php echo "<?php " ?>ActiveForm::end(); ?>
 </div>

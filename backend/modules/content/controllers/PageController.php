@@ -2,17 +2,18 @@
 
 namespace backend\modules\content\controllers;
 
-use backend\modules\content\models\search\PageSearch;
-use common\models\Page;
-use common\traits\FormAjaxValidationTrait;
 use Yii;
-use yii\filters\VerbFilter;
+use common\models\Page;
+use backend\modules\content\models\search\PageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
+/**
+ * PageController implements the CRUD actions for Page model.
+ */
 class PageController extends Controller
 {
-    use FormAjaxValidationTrait;
 
     /** @inheritdoc */
     public function behaviors()
@@ -28,67 +29,103 @@ class PageController extends Controller
     }
 
     /**
+     * Lists all Page models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $page = new Page();
-
-        $this->performAjaxValidation($page);
-
-        if ($page->load(Yii::$app->request->post()) && $page->save()) {
-            return $this->redirect(['index']);
-        }
         $searchModel = new PageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'model' => $page,
         ]);
     }
 
     /**
+     * Displays a single Page model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new Page model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $page = new Page();
+        $model = new Page();
 
-        $this->performAjaxValidation($page);
-
-        if ($page->load(Yii::$app->request->post()) && $page->save()) {
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {             
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);             
+            }
         }
-        return $this->render('create', [
-            'model' => $page,
-        ]);
+
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
+     * Updates an existing Page model.
+     * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     *
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $page = $this->findModel($id);
-
-        $this->performAjaxValidation($page);
-
-        if ($page->load(Yii::$app->request->post()) && $page->save()) {
-            return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {             
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);             
+            }
         }
 
-        return $this->render('update', [
-            'model' => $page,
-        ]);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('update', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
+     * Deletes an existing Page model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -99,8 +136,9 @@ class PageController extends Controller
     }
 
     /**
+     * Finds the Page model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     *
      * @return Page the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

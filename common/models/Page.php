@@ -1,32 +1,29 @@
 <?php
 
 namespace common\models;
-
 use common\models\query\PageQuery;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
-
 /**
  * This is the model class for table "page".
  *
- * @property integer $id
+ * @property int $id
  * @property string $slug
  * @property string $title
  * @property string $body
- * @property string $view
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
+ * @property string|null $view
+ * @property int $status
+ * @property int|null $created_at
+ * @property int|null $updated_at
  */
-class Page extends ActiveRecord
+class Page extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISHED = 1;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -67,9 +64,9 @@ class Page extends ActiveRecord
             ]
         ];
     }
-
+    
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -85,7 +82,7 @@ class Page extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

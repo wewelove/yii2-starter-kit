@@ -1,44 +1,36 @@
 <?php
 
-use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
-use rmrevin\yii\fontawesome\FAS;
+use yii\bootstrap4\ActiveForm;
 
 /**
  * @var yii\web\View $this
  * @var common\models\ArticleCategory $model
- * @var common\models\ArticleCategory[] $categories
+ * @var yii\bootstrap4\ActiveForm $form
  */
-
 ?>
 
-<?php $form = ActiveForm::begin([
-    'enableClientValidation' => false,
-    'enableAjaxValidation' => true,
-]) ?>
-    <div class="card card-success">
-        <div class="card-header">
-            <h3 class="card-title">
-                <?php echo Yii::t('backend', 'Create a new category') ?>
-            </h3>
-        </div>
-        <div class="card-body">
-            <?php echo $form->errorSummary($model) ?>
-            <?php echo $form->field($model, 'parent_id')->dropDownList($categories, ['prompt' => '']) ?>
+<div class="article-category-form">
+    <?php
+     $form = ActiveForm::begin([
+        'layout' => ActiveForm::LAYOUT_HORIZONTAL,
+        'enableClientValidation' => false,
+        'enableAjaxValidation' => true
+    ]); 
+    ?>
+        <div class="card">
+            <div class="card-body">
+                <?php echo $form->errorSummary($model); ?>
 
-            <?php echo $form->field($model, 'title')->textInput(['maxlength' => 512]) ?>
-
-            <?php echo $form->field($model, 'slug')
-                ->hint(Yii::t('backend', 'If you leave this field empty, the slug will be generated automatically'))
-                ->textInput(['maxlength' => 1024]) ?>
-
-            <?php echo $form->field($model, 'status')->checkbox() ?>
+                <?php echo $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
+                <?php echo $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+                <?php echo $form->field($model, 'parent_id')->textInput() ?>
+                <?php echo $form->field($model, 'status')->textInput() ?>
+                
+            </div>
+            <div class="card-footer">
+                <?php echo Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
         </div>
-        <div class="card-footer">
-            <?php echo Html::submitButton(
-                $model->isNewRecord? FAS::icon('save').' '.Yii::t('backend', 'Create'):FAS::icon('save').' '. Yii::t('backend', 'Save Changes'),
-                ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
-            ) ?>
-        </div>
-    </div>
-<?php ActiveForm::end() ?>
+    <?php ActiveForm::end(); ?>
+</div>

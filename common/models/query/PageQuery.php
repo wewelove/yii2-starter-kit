@@ -1,19 +1,34 @@
-<?php declare(strict_types=1);
-
+<?php
 
 namespace common\models\query;
 
-use common\models\Page;
-use yii\db\ActiveQuery;
-
-class PageQuery extends ActiveQuery
+/**
+ * This is the ActiveQuery class for [[\common\models\Page]].
+ *
+ * @see \common\models\Page
+ */
+class PageQuery extends \yii\db\ActiveQuery
 {
-    /**
-     * @return $this
-     */
-    public function published()
+    /*public function active()
     {
-        $this->andWhere(['status' => Page::STATUS_PUBLISHED]);
-        return $this;
+        return $this->andWhere('[[status]]=1');
+    }*/
+
+    /**
+     * {@inheritdoc}
+     * @return \common\models\Page[]|array
+     */
+    public function all($db = null)
+    {
+        return parent::all($db);
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return \common\models\Page|array|null
+     */
+    public function one($db = null)
+    {
+        return parent::one($db);
     }
 }

@@ -2,18 +2,18 @@
 
 namespace backend\modules\content\controllers;
 
-use backend\modules\content\models\search\ArticleSearch;
-use common\models\Article;
-use common\models\ArticleCategory;
-use common\traits\FormAjaxValidationTrait;
 use Yii;
-use yii\filters\VerbFilter;
+use common\models\Article;
+use backend\modules\content\models\search\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
+/**
+ * ArticleController implements the CRUD actions for Article model.
+ */
 class ArticleController extends Controller
 {
-    use FormAjaxValidationTrait;
 
     /** @inheritdoc */
     public function behaviors()
@@ -29,15 +29,13 @@ class ArticleController extends Controller
     }
 
     /**
+     * Lists all Article models.
      * @return mixed
      */
     public function actionIndex()
     {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->sort = [
-            'defaultOrder' => ['published_at' => SORT_DESC],
-        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -46,50 +44,88 @@ class ArticleController extends Controller
     }
 
     /**
+     * Displays a single Article model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new Article model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $article = new Article();
+        $model = new Article();
 
-        $this->performAjaxValidation($article);
-
-        if ($article->load(Yii::$app->request->post()) && $article->save()) {
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {             
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);             
+            }
         }
 
-        return $this->render('create', [
-            'model' => $article,
-            'categories' => ArticleCategory::find()->active()->all(),
-        ]);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
+     * Updates an existing Article model.
+     * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     *
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $article = $this->findModel($id);
-
-        $this->performAjaxValidation($article);
-
-        if ($article->load(Yii::$app->request->post()) && $article->save()) {
-            return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {             
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);             
+            }
         }
 
-        $article->published_at = date('Y-m-d H:i:s', $article->published_at);
-
-        return $this->render('update', [
-            'model' => $article,
-            'categories' => ArticleCategory::find()->active()->all(),
-        ]);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('update', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
+     * Deletes an existing Article model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -100,8 +136,9 @@ class ArticleController extends Controller
     }
 
     /**
+     * Finds the Article model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     *
      * @return Article the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -111,7 +148,5 @@ class ArticleController extends Controller
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
-
     }
-
 }

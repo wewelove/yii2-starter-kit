@@ -2,9 +2,10 @@
 
 namespace backend\modules\content\models\search;
 
-use common\models\Page;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Page;
 
 /**
  * PageSearch represents the model behind the search form about `common\models\Page`.
@@ -17,8 +18,8 @@ class PageSearch extends Page
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['slug', 'title', 'body'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['slug', 'title', 'body', 'view'], 'safe'],
         ];
     }
 
@@ -33,6 +34,9 @@ class PageSearch extends Page
 
     /**
      * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -50,11 +54,14 @@ class PageSearch extends Page
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'body', $this->body]);
+            ->andFilterWhere(['like', 'body', $this->body])
+            ->andFilterWhere(['like', 'view', $this->view]);
 
         return $dataProvider;
     }

@@ -2,18 +2,18 @@
 
 namespace backend\modules\content\controllers;
 
-use backend\modules\content\models\search\ArticleCategorySearch;
-use common\models\ArticleCategory;
-use common\traits\FormAjaxValidationTrait;
 use Yii;
-use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
+use common\models\ArticleCategory;
+use backend\modules\content\models\search\ArticleCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
+/**
+ * CategoryController implements the CRUD actions for ArticleCategory model.
+ */
 class CategoryController extends Controller
 {
-    use FormAjaxValidationTrait;
 
     /** @inheritdoc */
     public function behaviors()
@@ -29,57 +29,103 @@ class CategoryController extends Controller
     }
 
     /**
+     * Lists all ArticleCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $category = new ArticleCategory();
-
-        $this->performAjaxValidation($category);
-
-        if ($category->load(Yii::$app->request->post()) && $category->save()) {
-            return $this->redirect(['index']);
-        }
         $searchModel = new ArticleCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $categories = ArticleCategory::find()->noParents()->all();
-        $categories = ArrayHelper::map($categories, 'id', 'title');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'model' => $category,
-            'categories' => $categories,
         ]);
     }
 
     /**
+     * Displays a single ArticleCategory model.
      * @param integer $id
-     *
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new ArticleCategory model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new ArticleCategory();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {             
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);             
+            }
+        }
+
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Updates an existing ArticleCategory model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $category = $this->findModel($id);
-
-        $this->performAjaxValidation($category);
-
-        if ($category->load(Yii::$app->request->post()) && $category->save()) {
-            return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {             
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);             
+            }
         }
-        $categories = ArticleCategory::find()->noParents()->andWhere(['not', ['id' => $id]])->all();
-        $categories = ArrayHelper::map($categories, 'id', 'title');
 
-        return $this->render('update', [
-            'model' => $category,
-            'categories' => $categories,
-        ]);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('update', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
+     * Deletes an existing ArticleCategory model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     *
      * @return mixed
      */
     public function actionDelete($id)
@@ -90,8 +136,9 @@ class CategoryController extends Controller
     }
 
     /**
+     * Finds the ArticleCategory model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     *
      * @return ArticleCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

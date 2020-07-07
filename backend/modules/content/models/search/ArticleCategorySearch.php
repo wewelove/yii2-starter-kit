@@ -2,10 +2,14 @@
 
 namespace backend\modules\content\models\search;
 
-use common\models\ArticleCategory;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\ArticleCategory;
 
+/**
+ * ArticleCategorySearch represents the model behind the search form about `common\models\ArticleCategory`.
+ */
 class ArticleCategorySearch extends ArticleCategory
 {
     /**
@@ -14,8 +18,8 @@ class ArticleCategorySearch extends ArticleCategory
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['slug', 'title'], 'safe'],
+            [['id', 'parent_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['slug', 'title', 'body'], 'safe'],
         ];
     }
 
@@ -30,6 +34,8 @@ class ArticleCategorySearch extends ArticleCategory
 
     /**
      * Creates data provider instance with search query applied
+     *
+     * @param array $params
      *
      * @return ActiveDataProvider
      */
@@ -47,11 +53,15 @@ class ArticleCategorySearch extends ArticleCategory
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
             'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'title', $this->title]);
+            ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'body', $this->body]);
 
         return $dataProvider;
     }
