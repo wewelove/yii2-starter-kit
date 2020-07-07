@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Application Name' => '通用后台管理系统',
     'Account' => '账号',
     'Application' => '应用程序',
     'Application settings' => '系统设置',
