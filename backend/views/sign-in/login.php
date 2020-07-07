@@ -6,7 +6,7 @@ use yii\bootstrap4\ActiveForm;
 /* @var $form yii\bootstrap4\ActiveForm */
 /* @var $model \backend\models\LoginForm */
 
-$this->title = Yii::t('backend', 'Sign In');
+$this->title = Yii::t('backend', 'Application Name');
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['body-class'] = 'login-page';
 ?>
@@ -17,7 +17,7 @@ $this->params['body-class'] = 'login-page';
 
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg"><?php echo Yii::t('backend', 'Sign in to start your session') ?></p>
+            <p class="login-box-msg"><?php echo Yii::t('backend', 'Sign In') ?></p>
 
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
             <?php echo $form->errorSummary($model) ?>
@@ -35,7 +35,7 @@ $this->params['body-class'] = 'login-page';
             ])->passwordInput() ?>
             <?php echo $form->field($model, 'rememberMe')->checkbox() ?>
 
-            <?php echo Html::submitButton(Yii::t('backend', 'Sign In'). ' <span class="fas fa-arrow-right fa-sm"></span>', [
+            <?php echo Html::submitButton(Yii::t('backend', 'Sign In'), [
                 'class' => 'btn btn-primary btn-block',
                 'name' => 'login-button'
             ]) ?>
