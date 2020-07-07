@@ -29,7 +29,7 @@ use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
-    <?php echo "<?php " ?>$form = ActiveForm::begin(); ?>
+    <?php echo "<?php " ?>$form = ActiveForm::begin(['layout' => ActiveForm::LAYOUT_HORIZONTAL]); ?>
         <div class="card">
             <div class="card-body">
                 <?php echo "<?php echo " ?>$form->errorSummary($model); ?>

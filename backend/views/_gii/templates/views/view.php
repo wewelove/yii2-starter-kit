@@ -27,16 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
     <div class="card">
-        <div class="card-header">
-            <?php echo "<?php echo " ?>Html::a(<?php echo $generator->generateString('Update') ?>, ['update', <?php echo $urlParams ?>], ['class' => 'btn btn-primary']) ?>
-            <?php echo "<?php echo " ?>Html::a(<?php echo $generator->generateString('Delete') ?>, ['delete', <?php echo $urlParams ?>], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => <?php echo $generator->generateString('Are you sure you want to delete this item?') ?>,
-                    'method' => 'post',
-                ],
-            ]) ?>
-        </div>
         <div class="card-body">
             <?php echo "<?php echo " ?>DetailView::widget([
                 'model' => $model,

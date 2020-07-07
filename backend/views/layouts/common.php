@@ -425,6 +425,7 @@ $logEntries[] = [
     <!-- /footer -->
 
     <?php if (Yii::$app->user->can('administrator')) : ?>
+    
     <!-- control sidebar -->
     <div class="control-sidebar control-sidebar-dark overflow-auto">
         <div class="control-sidebar-content p-3">

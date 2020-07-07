@@ -16,6 +16,9 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use <?php echo $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
+use yii\widgets\Pjax;
+use rmrevin\yii\fontawesome\FAS;
+use ivankff\yii2ModalAjax\ModalAjax;
 
 /**
  * @var yii\web\View $this
@@ -26,10 +29,18 @@ use <?php echo $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : 
 $this->title = <?php echo $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php echo "<?php\n"; ?>
+Pjax::begin([
+    'id' => 'grid-user-pjax',
+    'timeout' => 5000,
+]);
+?>
+
 <div class="<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
     <div class="card">
         <div class="card-header">
-            <?php echo "<?php echo " ?>Html::a(<?php echo $generator->generateString('Create {modelClass}', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?>, ['create'], ['class' => 'btn btn-success']) ?>
+            <?php echo "<?php echo " ?>Html::a(FAS::icon('plus'), ['create'], [ 'class' => 'btn btn-success btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); ?>
         </div>
 
         <div class="card-body <?php echo $generator->indexWidgetType === 'grid'? 'p-0': '' ?>">
@@ -92,3 +103,16 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+
+<?php echo "<?php\n"; ?> Pjax::end(); ?>
+
+<?php echo "<?php\n"; ?>
+echo ModalAjax::widget([
+    'selector' => 'a.btn-ajax-modal',
+    'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
+    'header' => '',
+    'size' => 'modal-lg',
+    'autoClose' => true,
+    'pjaxContainer' => '#grid-user-pjax'
+]);
+?>

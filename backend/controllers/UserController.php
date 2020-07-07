@@ -51,9 +51,15 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**
@@ -85,14 +91,28 @@ class UserController extends Controller
     {
         $model = new UserForm();
         $model->setScenario('create');
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {             
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);             
+            }
         }
 
-        return $this->render('create', [
-            'model' => $model,
-            'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
-        ]);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
+            ]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
+            ]);
+        }
     }
 
     /**
@@ -104,14 +124,28 @@ class UserController extends Controller
     {
         $model = new UserForm();
         $model->setModel($this->findModel($id));
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {             
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);             
+            }
         }
 
-        return $this->render('update', [
-            'model' => $model,
-            'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
-        ]);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('update', [
+                'model' => $model,
+                'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
+            ]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+                'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
+            ]);
+        }
     }
 
     /**
