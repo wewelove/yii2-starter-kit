@@ -13,9 +13,9 @@ class m150725_192740_seed_data extends Migration
     {
         $this->insert('{{%user}}', [
             'id' => 1,
-            'username' => 'webmaster',
-            'email' => 'webmaster@example.com',
-            'password_hash' => Yii::$app->getSecurity()->generatePasswordHash('webmaster'),
+            'username' => 'admin',
+            'email' => 'admin@example.com',
+            'password_hash' => Yii::$app->getSecurity()->generatePasswordHash('admin'),
             'auth_key' => Yii::$app->getSecurity()->generateRandomString(),
             'access_token' => Yii::$app->getSecurity()->generateRandomString(40),
             'status' => User::STATUS_ACTIVE,
@@ -155,7 +155,7 @@ class m150725_192740_seed_data extends Migration
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'backend.layout-fixed',
-            'value' => 0
+            'value' => 1
         ]);
 
         $this->insert('{{%key_storage_item}}', [
@@ -172,6 +172,21 @@ class m150725_192740_seed_data extends Migration
             'key' => 'frontend.maintenance',
             'value' => 'disabled',
             'comment' => 'Set it to "enabled" to turn on maintenance mode'
+        ]);
+
+        $this->insert('{{%key_storage_item}}', [
+            'key' => 'adminlte.navbar-fixed',
+            'value' => 1
+        ]);
+
+        $this->insert('{{%key_storage_item}}', [
+            'key' => 'adminlte.sidebar-fixed',
+            'value' => 1
+        ]);
+
+        $this->insert('{{%key_storage_item}}', [
+            'key' => 'adminlte.sidebar-legacy',
+            'value' => 1
         ]);
 
     }
@@ -191,6 +206,9 @@ class m150725_192740_seed_data extends Migration
                 'backend.layout-fixed',
                 'backend.layout-boxed',
                 'backend.layout-collapsed-sidebar',
+                'adminlte.navbar-fixed',
+                'adminlte.sidebar-fixed',
+                'adminlte.sidebar-legacy',
             ],
         ]);
 
