@@ -173,6 +173,11 @@ class m150725_192740_seed_data extends Migration
             'value' => 'disabled',
             'comment' => 'Set it to "enabled" to turn on maintenance mode'
         ]);
+        
+        $this->insert('{{%key_storage_item}}', [
+            'key' => 'adminlte.body-small-text',
+            'value' => 1
+        ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'adminlte.navbar-fixed',
@@ -186,6 +191,11 @@ class m150725_192740_seed_data extends Migration
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'adminlte.sidebar-legacy',
+            'value' => 1
+        ]);
+
+        $this->insert('{{%key_storage_item}}', [
+            'key' => 'adminlte.sidebar-child-indent',
             'value' => 1
         ]);
 
@@ -205,10 +215,17 @@ class m150725_192740_seed_data extends Migration
                 'backend.theme-skin',
                 'backend.layout-fixed',
                 'backend.layout-boxed',
-                'backend.layout-collapsed-sidebar',
+                'backend.layout-collapsed-sidebar'
+            ],
+        ]);
+
+        $this->delete('{{%key_storage_item}}', [
+            'key' => [
+                'adminlte.body-small-text',
                 'adminlte.navbar-fixed',
                 'adminlte.sidebar-fixed',
                 'adminlte.sidebar-legacy',
+                'adminlte.sidebar-child-indent'
             ],
         ]);
 
