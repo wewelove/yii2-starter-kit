@@ -1,5 +1,6 @@
 <?php
 $config = [
+    'name' => '通用后台管理系统',
     'homeUrl' => Yii::getAlias('@backendUrl'),
     'controllerNamespace' => 'backend\controllers',
     'defaultRoute' => 'timeline-event/index',
@@ -90,9 +91,10 @@ if (YII_ENV_DEV) {
             'crud' => [
                 'class' => yii\gii\generators\crud\Generator::class,
                 'templates' => [
-                    'yii2-starter-kit' => Yii::getAlias('@backend/views/_gii/templates'),
+                    'default' => Yii::getAlias('@backend/views/_gii/default'),
+                    'ajax' => Yii::getAlias('@backend/views/_gii/ajax'),
                 ],
-                'template' => 'yii2-starter-kit',
+                'template' => 'default',
                 'messageCategory' => 'backend',
             ],
         ],
