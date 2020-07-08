@@ -45,7 +45,7 @@ Pjax::begin([
                 'columns' => [
                     [
                         'attribute' => 'id',
-                        'options' => ['style' => 'width: 5%'],
+                        'options' => ['style' => 'width: 50px'],
                     ],
                     'username',
                     'email:email',

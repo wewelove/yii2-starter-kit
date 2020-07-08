@@ -1,4 +1,5 @@
 <?php
+use common\models\User;
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -18,9 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'id',
                     'username',
-                    'auth_key',
                     'email:email',
-                    'status',
+                    [
+                        'attribute' => 'status',
+                        'value' => function ($model) {
+                            $statuses = User::statuses();
+                            return $statuses[$model->status];
+                        },
+                    ],
                     'created_at:datetime',
                     'updated_at:datetime',
                     'logged_at:datetime',
