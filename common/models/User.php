@@ -43,7 +43,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     const EVENT_AFTER_SIGNUP = 'afterSignup';
     const EVENT_AFTER_LOGIN = 'afterLogin';
-
+    
     /**
      * @inheritdoc
      */
@@ -193,6 +193,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
+            'id' => Yii::t('common', 'ID'),
             'username' => Yii::t('common', 'Username'),
             'email' => Yii::t('common', 'E-mail'),
             'status' => Yii::t('common', 'Status'),
