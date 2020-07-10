@@ -70,10 +70,11 @@ return [
     'Username' => '用户名',
     'Value' => '值',
     'API access token' => 'API 访问令牌',
-    'Draft' => '',
+    'Draft' => '草稿',
     'Email' => '邮箱',
     'Expire At' => '过期时间',
     'Password' => '密码',
     'Roles' => '角色',
     'Token' => '令牌',
+    'Actions' => '操作'
 ];
