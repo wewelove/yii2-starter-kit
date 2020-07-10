@@ -15,13 +15,11 @@ use yii\bootstrap4\ActiveForm;
      $form = ActiveForm::begin([
         'layout' => ActiveForm::LAYOUT_HORIZONTAL,
         'enableClientValidation' => false,
-        'enableAjaxValidation' => true
+        'enableAjaxValidation' => false
     ]); 
     ?>
         <div class="card">
             <div class="card-body">
-                <?php echo $form->errorSummary($model); ?>
-
                 <?php echo $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
                 <?php echo $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
                 <?php echo $form->field($model, 'body')->textarea(['rows' => 6]) ?>
