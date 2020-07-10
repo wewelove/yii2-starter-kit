@@ -5,9 +5,7 @@
  * @var common\models\Page $model
  */
 
-$this->title = Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Page',
-]);
+$this->title = Yii::t('backend', 'Create');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Pages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

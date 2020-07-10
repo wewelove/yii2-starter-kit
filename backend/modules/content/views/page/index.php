@@ -1,10 +1,9 @@
 <?php
-
+use common\grid\EnumColumn;
+use common\models\Page;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use rmrevin\yii\fontawesome\FAS;
-use ivankff\yii2ModalAjax\ModalAjax;
 
 /**
  * @var yii\web\View $this
@@ -15,18 +14,13 @@ use ivankff\yii2ModalAjax\ModalAjax;
 $this->title = Yii::t('backend', 'Pages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<?php
-Pjax::begin([
-    'id' => 'grid-page-pjax',
-    'timeout' => 5000,
-]);
-?>
-
 <div class="page-index">
     <div class="card">
         <div class="card-header">
-            <?php echo Html::a(FAS::icon('plus'), ['create'], [ 'class' => 'btn btn-success btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); ?>
+            <?php  echo Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
+                ['create'], 
+                [ 'class' => 'btn btn-success btn-sm']); 
+            ?>
         </div>
 
         <div class="card-body p-0">
@@ -43,18 +37,25 @@ Pjax::begin([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-
-                    'id',
+                    [
+                        'attribute' => 'id',
+                        'options' => ['style' => 'width: 85px'],
+                    ],
                     'slug',
                     'title',
-                    'body:ntext',
-                    'view',
-                    // 'status',
+                    [
+                        'class' => EnumColumn::class,
+                        'attribute' => 'status',
+                        'enum' => Page::statuses(),
+                        'filter' => Page::statuses(),
+                    ],
                     // 'created_at',
                     // 'updated_at',
-                    
-                    ['class' => \common\widgets\ActionColumn::class],
+                    [
+                        'class' => \common\widgets\ActionColumn::class,
+                        'header' => Yii::t('common', 'Actions'),
+                        'options' => ['style' => 'width: 120px'],
+                    ],
                 ],
             ]); ?>
     
@@ -65,16 +66,3 @@ Pjax::begin([
     </div>
 
 </div>
-
-<?php Pjax::end(); ?>
-
-<?php
-echo ModalAjax::widget([
-    'selector' => 'a.btn-ajax-modal',
-    'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
-    'header' => '',
-    'size' => 'modal-lg',
-    'autoClose' => true,
-    'pjaxContainer' => '#grid-page-pjax'
-]);
-?>
