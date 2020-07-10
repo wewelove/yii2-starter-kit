@@ -40,7 +40,10 @@ Pjax::begin([
 <div class="<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
     <div class="card">
         <div class="card-header">
-            <?php echo "<?php echo " ?>Html::a(FAS::icon('plus'), ['create'], [ 'class' => 'btn btn-success btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); ?>
+            <?php echo "<?php echo " ?>Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
+                ['create'], 
+                [ 'class' => 'btn btn-success btn-sm btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); 
+            ?>
         </div>
 
         <div class="card-body <?php echo $generator->indexWidgetType === 'grid'? 'p-0': '' ?>">
@@ -83,7 +86,11 @@ Pjax::begin([
                     }
         ?>
 
-                    ['class' => \common\widgets\ActionColumn::class],
+                    [
+                        'class' => \common\widgets\ActionColumn::class,
+                        'header' => Yii::t('common', 'Actions'),
+                        'options' => ['style' => 'width: 120px'],
+                    ],
                 ],
             ]); ?>
     <?php else: ?>

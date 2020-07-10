@@ -18,7 +18,7 @@ echo "<?php\n";
  * @var <?php echo ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = <?php echo $generator->generateString('Update {modelClass}: ', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?> . ' ' . $model-><?php echo $generator->getNameAttribute() ?>;
+$this->title = <?php echo $generator->generateString('Update') ?>;
 $this->params['breadcrumbs'][] = ['label' => <?php echo $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model-><?php echo $generator->getNameAttribute() ?>, 'url' => ['view', <?php echo $urlParams ?>]];
 $this->params['breadcrumbs'][] = <?php echo $generator->generateString('Update') ?>;
