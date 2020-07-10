@@ -28,7 +28,10 @@ Pjax::begin([
 <div class="user-index">
     <div class="card">
         <div class="card-header">
-            <?php  echo Html::a(FAS::icon('plus'), ['create'], [ 'class' => 'btn btn-success btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); ?>
+            <?php  echo Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
+                ['create'], 
+                [ 'class' => 'btn btn-success btn-sm btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); 
+            ?>
         </div>
 
         <div class="card-body p-0">
@@ -45,7 +48,7 @@ Pjax::begin([
                 'columns' => [
                     [
                         'attribute' => 'id',
-                        'options' => ['style' => 'width: 50px'],
+                        'options' => ['style' => 'width: 85px'],
                     ],
                     'username',
                     'email:email',
@@ -88,6 +91,7 @@ Pjax::begin([
                     // 'updated_at',
                     [
                         'class' => \common\widgets\ActionColumn::class,
+                        'header' => Yii::t('common', 'Actions'),
                         'template' => '{login} {view} {update} {delete}',
                         'options' => ['style' => 'width: 140px'],
                         'buttons' => [

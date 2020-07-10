@@ -12,7 +12,11 @@ use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="user-form">
-    <?php $form = ActiveForm::begin(['layout' => ActiveForm::LAYOUT_HORIZONTAL]) ?>
+    <?php $form = ActiveForm::begin([
+        'layout' => ActiveForm::LAYOUT_HORIZONTAL,
+        'enableClientValidation' => false,
+        'enableAjaxValidation' => false
+    ]) ?>
         <div class="card">
             <div class="card-body">
                 <?php echo $form->field($model, 'username') ?>
