@@ -9,6 +9,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "article".
@@ -144,6 +145,7 @@ class Article extends ActiveRecord
             'body' => Yii::t('common', 'Body'),
             'view' => Yii::t('common', 'Article View'),
             'thumbnail' => Yii::t('common', 'Thumbnail'),
+            'attachments' => Yii::t('common', 'Attachments'),
             'category_id' => Yii::t('common', 'Category'),
             'status' => Yii::t('common', 'Published'),
             'published_at' => Yii::t('common', 'Published At'),
@@ -184,5 +186,14 @@ class Article extends ActiveRecord
     public function getArticleAttachments()
     {
         return $this->hasMany(ArticleAttachment::class, ['article_id' => 'id']);
+    }
+
+
+    /**
+     * @return Array
+     */
+    public function allActiveCategories()
+    {
+        return ArrayHelper::map(ArticleCategory::find()->active()->all(), 'id', 'title');
     }
 }

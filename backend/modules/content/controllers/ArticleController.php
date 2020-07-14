@@ -4,6 +4,7 @@ namespace backend\modules\content\controllers;
 
 use Yii;
 use common\models\Article;
+use common\models\ArticleCategory;
 use backend\modules\content\models\search\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -50,15 +51,11 @@ class ArticleController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('view', [
-                'model' => $this->findModel($id),
-            ]);
-        } else {
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
-        }
+        $this->layout = '@backend/views/layouts/base';
+
+        return $this->render('view', [
+            'model' => $this->findModel($id)
+        ]);
     }
 
     /**
@@ -68,27 +65,17 @@ class ArticleController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = new Article();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {             
-                if (Yii::$app->request->isAjax) {
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['success' => true];
-                }
-                return $this->redirect(['view', 'id' => $model->id]);             
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('create', [
+            'model' => $model
+        ]);
     }
 
     /**
@@ -99,27 +86,17 @@ class ArticleController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = $this->findModel($id);
         
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {             
-                if (Yii::$app->request->isAjax) {
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['success' => true];
-                }
-                return $this->redirect(['view', 'id' => $model->id]);             
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('update', [
-                'model' => $model,
-            ]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
