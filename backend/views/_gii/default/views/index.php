@@ -53,7 +53,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'dataProvider' => $dataProvider,
                 <?php echo !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n                'columns' => [\n" : "'columns' => [\n"; ?>
-                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'options' => ['style' => 'width: 60px'],
+                    ],
 
                     <?php
                     $count = 0;

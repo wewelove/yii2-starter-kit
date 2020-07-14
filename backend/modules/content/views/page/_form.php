@@ -20,16 +20,20 @@ use yii\bootstrap4\ActiveForm;
             <div class="card-body">
 
                 <?php echo $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-                <?php echo $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
+                <?php echo $form->field($model, 'slug')
+                    ->hint(Yii::t('backend', 'If you leave this field empty, the slug will be generated automatically'))
+                    ->textInput(['maxlength' => true]) 
+                ?>
                 <?php echo $form->field($model, 'body')->widget(
                     \yii\imperavi\Widget::class,
                     [
                         'plugins' => ['fullscreen', 'fontcolor', 'video'],
                         'options' => [
+                            'lang' => 'zh_cn',
                             'minHeight' => 400,
                             'maxHeight' => 400,
                             'buttonSource' => true,
-                            'imageUpload' => Yii::$app->urlManager->createUrl(['/file/storage/upload-imperavi']),
+                            'imageUpload' => Yii::$app->urlManager->createUrl(['/file/storage/upload']),
                         ],
                     ]
                 ) ?>

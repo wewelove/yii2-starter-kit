@@ -25,6 +25,7 @@ Pjax::begin([
     'timeout' => 5000,
 ]);
 ?>
+
 <div class="user-index">
     <div class="card">
         <div class="card-header">
@@ -47,9 +48,10 @@ Pjax::begin([
                 ],
                 'columns' => [
                     [
-                        'attribute' => 'id',
-                        'options' => ['style' => 'width: 85px'],
+                        'class' => 'yii\grid\SerialColumn',
+                        'options' => ['style' => 'width: 60px'],
                     ],
+
                     'username',
                     'email:email',
                     [
@@ -120,6 +122,7 @@ Pjax::begin([
         </div>
     </div>
 </div>
+
 <?php Pjax::end(); ?>
 
 <?php
@@ -129,6 +132,7 @@ echo ModalAjax::widget([
     'header' => '',
     'size' => 'modal-lg',
     'autoClose' => true,
+    'closeButton' => false,
     'pjaxContainer' => '#grid-user-pjax'
 ]);
 ?>

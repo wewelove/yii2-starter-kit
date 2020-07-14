@@ -62,7 +62,10 @@ Pjax::begin([
                 ],
                 'dataProvider' => $dataProvider,
                 <?php echo !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n                'columns' => [\n" : "'columns' => [\n"; ?>
-                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'options' => ['style' => 'width: 60px'],
+                    ],
 
                     <?php
                     $count = 0;
@@ -115,7 +118,7 @@ Pjax::begin([
 
 <?php echo "<?php\n"; ?>
 echo ModalAjax::widget([
-    'selector' => 'a.btn-ajax-modal',
+    'selector' => 'a.btn-ajamodal',
     'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
     'header' => '',
     'size' => 'modal-lg',
