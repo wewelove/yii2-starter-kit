@@ -76,5 +76,6 @@ return [
     'Password' => '密码',
     'Roles' => '角色',
     'Token' => '令牌',
-    'Actions' => '操作'
+    'Actions' => '操作',
+    'Attachments' => '附件'
 ];

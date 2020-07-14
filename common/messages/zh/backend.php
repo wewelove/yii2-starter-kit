@@ -57,7 +57,7 @@ return [
     'Hostname' => '主机名',
     'I18n Source Messages' => '国际化源信息',
     'ID' => 'ID',
-    'If you leave this field empty, the slug will be generated automatically' => '如果该字段留空的话，系统将自动生成一个slug',
+    'If you leave this field empty, the slug will be generated automatically' => '如果该字段留空的话，系统将自动生成一个标识',
     'Incorrect username or password.' => '用户名或密码错误',
     'Internal IP' => '内网IP',
     'Kernel version' => '内核版本',
@@ -207,4 +207,5 @@ return [
     'User ID' => '用户编号',
     'Widgets' => '',
     '{identity} has been deleted' => '{identity} 已经删除',
+    'View' => '查看'
 ];
