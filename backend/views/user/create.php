@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 /* @var $model backend\models\UserForm */
 /* @var $roles yii\rbac\Role[] */
+
 $this->title = Yii::t('backend', 'Create {modelClass}', [
     'modelClass' => 'User',
 ]);

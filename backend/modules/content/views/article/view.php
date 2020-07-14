@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="fancybox-slim-scroll p-4">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body p-0">
                 <?php echo DetailView::widget([
                     'model' => $model,
                     'attributes' => [
