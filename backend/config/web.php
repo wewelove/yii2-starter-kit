@@ -93,6 +93,7 @@ if (YII_ENV_DEV) {
                 'templates' => [
                     'default' => Yii::getAlias('@backend/views/_gii/default'),
                     'ajax' => Yii::getAlias('@backend/views/_gii/ajax'),
+                    'iframe' => Yii::getAlias('@backend/views/_gii/iframe'),
                 ],
                 'template' => 'default',
                 'messageCategory' => 'backend',
