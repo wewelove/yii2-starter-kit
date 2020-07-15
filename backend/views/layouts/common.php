@@ -434,7 +434,7 @@ $logEntries[] = [
                     'keys' => [
                         'frontend.options' => [
                             'type' => FormModel::TYPE_HEADER,
-                            'content' => 'Frontend Options'
+                            'content' => Yii::t('backend', 'Frontend Options'),
                         ],
                         'frontend.maintenance' => [
                             'label' => Yii::t('backend', 'Maintenance mode'),
@@ -446,7 +446,7 @@ $logEntries[] = [
                         ],
                         'backend.options' => [
                             'type' => FormModel::TYPE_HEADER,
-                            'content' => 'Backend Options'
+                            'content' => Yii::t('backend', 'Backend Options'),
                         ],
                         'adminlte.body-small-text' => [
                             'label' => Yii::t('backend', 'Body small text'),

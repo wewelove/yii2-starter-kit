@@ -207,5 +207,9 @@ return [
     'User ID' => '用户编号',
     'Widgets' => '部件',
     '{identity} has been deleted' => '{identity} 已经删除',
-    'View' => '查看'
+    'View' => '查看',
+    'Frontend Options' => '前台设置',
+    'Maintenance mode' => '维护模式',
+    'Backend Options' => '后台设置'
+
 ];
