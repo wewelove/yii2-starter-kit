@@ -84,7 +84,7 @@ body {
   }
 }
 
-
+// 小字体侧边栏滚动条样式
 .layout-navbar-fixed.layout-fixed.text-sm .wrapper {
   .slim-scroll-box {
     padding-top: calc(2.93725rem + 1px);
@@ -95,16 +95,32 @@ body {
   }
 }
 
-.layout-navbar-fixed.layout-fixed .wrapper {
-  .slim-scroll-box {
-    padding-top: calc(3.5rem + 1px);
-    padding-bottom: calc(3.5rem + 1px);
-    .sidebar {
-      margin: 0 !important;
+// 侧边栏滚动条样式
+.layout-navbar-fixed.layout-fixed {
+  &.text-sm {
+    .wrapper {
+      .slim-scroll-box {
+        padding-top: calc(2.93725rem + 1px);
+        padding-bottom: calc(2.93725rem + 1px);
+        .sidebar {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    .slim-scroll-box {
+      padding-top: calc(3.5rem + 1px);
+      padding-bottom: calc(3.5rem + 1px);
+      .sidebar {
+        margin: 0 !important;
+      }
     }
   }
 }
  
+// 列表搜索栏目表格样式
 .gridview {
   .filters {
     td {
@@ -113,14 +129,16 @@ body {
   }
 }
 
+// fancybox 弹出框样式
 .fancybox-slide--iframe {
   .fancybox-content {
     max-width: 80%;
     max-height: 90%;
     margin: 0;
-    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
   }
   .fancybox-iframe {
-    border-radius: 5px;
+    border-radius: .3rem;
   }
 }
