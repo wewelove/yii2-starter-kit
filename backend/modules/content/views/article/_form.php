@@ -3,6 +3,7 @@
 use trntv\filekit\widget\Upload;
 use kartik\datetime\DateTimePicker;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
 use yii\web\JsExpression;
 
@@ -32,21 +33,23 @@ use yii\web\JsExpression;
 
                 <?php echo $form->field($model, 'category_id')->dropDownList($model->allActiveCategories(), ['prompt' => '']) ?>
 
-                <?php echo $form->field($model, 'body')->widget(
-                    \yii\imperavi\Widget::class,
-                    [
-                        'plugins' => ['fullscreen', 'fontcolor', 'video'],
-                        'options' => [
-                            'lang' => 'zh_cn',
-                            'minHeight' => 400,
-                            'maxHeight' => 400,
-                            'buttonSource' => true,
-                            'convertDivs' => false,
-                            'removeEmptyTags' => true,
-                            'imageUpload' => Yii::$app->urlManager->createUrl(['/file/storage/upload']),
+                <?php echo $form->field($model, 'body')->widget('vova07\imperavi\Widget', [
+                    'settings' => [
+                        'lang' => 'zh_cn',
+                        'minHeight' => 200,
+                        'imageUpload' => Url::to(['/file/storage/upload-imperavi']),
+                        'fileUpload' => Url::to(['/file/storage/upload-imperavi']),
+                        'plugins' => [
+                            'fontcolor',
+                            'fontfamily',
+                            'table',
+                            'imagemanager',
+                            'filemanager',
+                            'video'
                         ],
-                    ]
-                ) ?>
+                    ],
+                ]);
+                ?>
 
                 <?php echo $form->field($model, 'thumbnail')->widget(
                     Upload::class,

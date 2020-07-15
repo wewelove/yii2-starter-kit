@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
 
 /**
@@ -24,19 +25,25 @@ use yii\bootstrap4\ActiveForm;
                     ->hint(Yii::t('backend', 'If you leave this field empty, the slug will be generated automatically'))
                     ->textInput(['maxlength' => true]) 
                 ?>
-                <?php echo $form->field($model, 'body')->widget(
-                    \yii\imperavi\Widget::class,
-                    [
-                        'plugins' => ['fullscreen', 'fontcolor', 'video'],
-                        'options' => [
-                            'lang' => 'zh_cn',
-                            'minHeight' => 400,
-                            'maxHeight' => 400,
-                            'buttonSource' => true,
-                            'imageUpload' => Yii::$app->urlManager->createUrl(['/file/storage/upload']),
+
+                <?php echo $form->field($model, 'body')->widget('vova07\imperavi\Widget', [
+                    'settings' => [
+                        'lang' => 'zh_cn',
+                        'minHeight' => 200,
+                        'imageUpload' => Url::to(['/file/storage/upload-imperavi']),
+                        'fileUpload' => Url::to(['/file/storage/upload-imperavi']),
+                        'plugins' => [
+                            'fontcolor',
+                            'fontfamily',
+                            'table',
+                            'imagemanager',
+                            'filemanager',
+                            'video'
                         ],
-                    ]
-                ) ?>
+                    ],
+                ]);
+                ?>
+
                 <?php echo $form->field($model, 'view')->textInput(['maxlength' => true]) ?>
                 <?php echo $form->field($model, 'status')->checkbox() ?>
                 
