@@ -56,7 +56,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ['table', 'table-striped', 'table-bordered', 'mb-0', 'table-sm'],
             ],
             'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+                [
+                    'class' => 'yii\grid\SerialColumn',
+                    'options' => ['style' => 'width: 60px'],
+                ],
 
                 [
                     'attribute' => 'component',
@@ -82,10 +85,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]),
                 ],
-
                 [
                     'class' => \common\widgets\ActionColumn::class,
+                    'header' => Yii::t('common', 'Actions'),
                     'template' => '{view} {delete}',
+                    'options' => ['style' => 'width: 100px;']
                 ],
             ],
         ]); ?>
