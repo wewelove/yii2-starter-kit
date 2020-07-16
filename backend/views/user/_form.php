@@ -14,7 +14,7 @@ use yii\bootstrap4\ActiveForm;
 <div class="user-form">
     <?php $form = ActiveForm::begin([
         'layout' => ActiveForm::LAYOUT_HORIZONTAL,
-        'enableClientValidation' => false,
+        'enableClientValidation' => true,
         'enableAjaxValidation' => false
     ]) ?>
         <div class="card">

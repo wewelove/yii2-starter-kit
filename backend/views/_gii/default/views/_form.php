@@ -32,7 +32,7 @@ use yii\bootstrap4\ActiveForm;
     <?php echo "<?php\n " ?>
     $form = ActiveForm::begin([
         'layout' => ActiveForm::LAYOUT_HORIZONTAL,
-        'enableClientValidation' => false,
+        'enableClientValidation' => true,
         'enableAjaxValidation' => false
     ]); 
     ?>

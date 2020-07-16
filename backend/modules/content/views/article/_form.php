@@ -19,7 +19,7 @@ use yii\web\JsExpression;
      $form = ActiveForm::begin([
         'layout' => ActiveForm::LAYOUT_HORIZONTAL,
         'enableClientValidation' => true,
-        'enableAjaxValidation' => true
+        'enableAjaxValidation' => false
     ]); 
     ?>
         <div class="card">
