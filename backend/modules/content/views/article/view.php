@@ -9,13 +9,11 @@ use yii\widgets\DetailView;
  */
 
 $this->title = Yii::t('backend', 'View');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Articles'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-view">
-    <nav class="navbar border-bottom">
-        <span class="navbar-brand mb-0"><?php echo $this->title; ?> </span>
-    </nav>
+    <div class="modal-header">
+        <h5 class="modal-title"><?php echo $this->title; ?> </h5>
+    </div>
 
     <div class="fancybox-slim-scroll p-4">
         <div class="card">
@@ -34,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'status',
                         'created_by',
                         'updated_by',
-                        'published_at',
-                        'created_at',
-                        'updated_at',
+                        'published_at:datetime',
+                        'created_at:datetime',
+                        'updated_at:datetime',
                         
                     ],
                 ]) ?>

@@ -93,15 +93,9 @@ class <?php echo $controllerClass ?> extends <?php echo StringHelper::basename($
      */
     public function actionView(<?php echo $actionParams ?>)
     {
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('view', [
-                'model' => $this->findModel(<?php echo $actionParams ?>),
-            ]);
-        } else {
-            return $this->render('view', [
-                'model' => $this->findModel(<?php echo $actionParams ?>),
-            ]);
-        }
+        return $this->renderAjax('view', [
+            'model' => $this->findModel(<?php echo $actionParams ?>),
+        ]);
     }
 
     /**
@@ -113,25 +107,20 @@ class <?php echo $controllerClass ?> extends <?php echo StringHelper::basename($
     {
         $model = new <?php echo $modelClass ?>();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {             
-                if (Yii::$app->request->isAjax) {
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['success' => true];
-                }
-                return $this->redirect(['view', <?php echo $urlParams ?>]);             
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $response = Yii::$app->response;
+            $response->format = \yii\web\Response::FORMAT_JSON;
+
+            return [
+                'code' => $response->getStatusCode(),
+                'status' => $response->statusText,
+                'data' => $model
+            ];
         }
 
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->renderAjax('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -144,25 +133,20 @@ class <?php echo $controllerClass ?> extends <?php echo StringHelper::basename($
     {
         $model = $this->findModel(<?php echo $actionParams ?>);
         
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {             
-                if (Yii::$app->request->isAjax) {
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['success' => true];
-                }
-                return $this->redirect(['view', <?php echo $urlParams ?>]);             
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $response = Yii::$app->response;
+            $response->format = \yii\web\Response::FORMAT_JSON;
+
+            return [
+                'code' => $response->getStatusCode(),
+                'status' => $response->statusText,
+                'data' => $model
+            ];
         }
 
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('update', [
-                'model' => $model,
-            ]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        return $this->renderAjax('update', [
+            'model' => $model,
+        ]);
     }
 
     /**

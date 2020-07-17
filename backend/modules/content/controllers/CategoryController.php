@@ -6,6 +6,7 @@ use Yii;
 use common\models\ArticleCategory;
 use backend\modules\content\models\search\ArticleCategorySearch;
 use yii\web\Controller;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -50,15 +51,10 @@ class CategoryController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('view', [
-                'model' => $this->findModel($id),
-            ]);
-        } else {
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
-        }
+        return $this->renderAjax('view', [
+            'model' => $this->findModel($id),
+        ]);
+
     }
 
     /**
@@ -70,25 +66,25 @@ class CategoryController extends Controller
     {
         $model = new ArticleCategory();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {             
-                if (Yii::$app->request->isAjax) {
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['success' => true];
-                }
-                return $this->redirect(['view', 'id' => $model->id]);             
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $response = Yii::$app->response;
+            $response->format = \yii\web\Response::FORMAT_JSON;
+
+            return [
+                'code' => $response->getStatusCode(),
+                'status' => $response->statusText,
+                'data' => $model
+            ];
         }
 
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        $categories = ArticleCategory::find()->noParents()->all();
+        $categories = ArrayHelper::map($categories, 'id', 'title');
+
+        return $this->renderAjax('create', [
+            'model' => $model,
+            'categories' => $categories,
+        ]);
+        
     }
 
     /**
@@ -101,25 +97,25 @@ class CategoryController extends Controller
     {
         $model = $this->findModel($id);
         
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {             
-                if (Yii::$app->request->isAjax) {
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['success' => true];
-                }
-                return $this->redirect(['view', 'id' => $model->id]);             
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $response = Yii::$app->response;
+            $response->format = \yii\web\Response::FORMAT_JSON;
+
+            return [
+                'code' => $response->getStatusCode(),
+                'status' => $response->statusText,
+                'data' => $model
+            ];
         }
 
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('update', [
-                'model' => $model,
-            ]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        $categories = ArticleCategory::find()->noParents()->andWhere(['not', ['id' => $id]])->all();
+        $categories = ArrayHelper::map($categories, 'id', 'title');
+
+        return $this->renderAjax('update', [
+            'model' => $model,
+            'categories' => $categories,
+        ]);
+
     }
 
     /**

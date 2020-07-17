@@ -7,6 +7,7 @@ use common\models\Article;
 use common\models\ArticleCategory;
 use backend\modules\content\models\search\ArticleSearch;
 use yii\web\Controller;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -37,6 +38,9 @@ class ArticleController extends Controller
     {
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort = [
+            'defaultOrder' => ['published_at' => SORT_DESC],
+        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -72,9 +76,13 @@ class ArticleController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
+        
+        $categories = ArticleCategory::find()->active()->all();
+        $categories = ArrayHelper::map($categories, 'id', 'title');
 
         return $this->render('create', [
-            'model' => $model
+            'model' => $model,
+            'categories' => $categories
         ]);
     }
 
@@ -94,8 +102,14 @@ class ArticleController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $model->published_at = date('Y-m-d H:i:s', $model->published_at);
+
+        $categories = ArticleCategory::find()->active()->all();
+        $categories = ArrayHelper::map($categories, 'id', 'title');
+
         return $this->render('update', [
             'model' => $model,
+            'categories' => $categories
         ]);
     }
 

@@ -2,8 +2,10 @@
 use common\grid\EnumColumn;
 use common\models\Page;
 use yii\helpers\Html;
+use yii\widgets\Pjax;
 use yii\grid\GridView;
 use rmrevin\yii\fontawesome\FAS;
+use ivankff\yii2ModalAjax\ModalAjax;
 
 /**
  * @var yii\web\View $this
@@ -14,12 +16,20 @@ use rmrevin\yii\fontawesome\FAS;
 $this->title = Yii::t('backend', 'Pages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php
+Pjax::begin([
+    'id' => 'grid-page-pjax',
+    'timeout' => 5000,
+]);
+?>
+
 <div class="page-index">
     <div class="card">
         <div class="card-header">
             <?php  echo Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
                 ['create'], 
-                [ 'class' => 'btn btn-success btn-sm']); 
+                [ 'class' => 'btn btn-success btn-sm  btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); 
             ?>
         </div>
 
@@ -67,3 +77,17 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+
+<?php Pjax::end(); ?>
+
+<?php
+echo ModalAjax::widget([
+    'selector' => 'a.btn-ajax-modal',
+    'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
+    'header' => '',
+    'size' => 'modal-lg',
+    'autoClose' => true,
+    'closeButton' => false,
+    'pjaxContainer' => '#grid-page-pjax'
+]);
+?>

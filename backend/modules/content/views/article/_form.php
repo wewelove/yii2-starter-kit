@@ -31,12 +31,13 @@ use yii\web\JsExpression;
                     ->textInput(['maxlength' => true]) 
                 ?>
 
-                <?php echo $form->field($model, 'category_id')->dropDownList($model->allActiveCategories(), ['prompt' => '']) ?>
+                <?php echo $form->field($model, 'category_id')->dropDownList($categories, ['prompt' => '']) ?>
 
-                <?php echo $form->field($model, 'body')->widget('vova07\imperavi\Widget', [
-                    'settings' => [
+                <?php echo $form->field($model, 'body')->widget('yii\redactor\widgets\Redactor', [
+                    'clientOptions' => [
                         'lang' => 'zh_cn',
-                        'minHeight' => 200,
+                        'minHeight' => 400,
+                        'imageManagerJson' => Url::to(['/redactor/upload/image-json']),
                         'imageUpload' => Url::to(['/file/storage/upload-imperavi']),
                         'fileUpload' => Url::to(['/file/storage/upload-imperavi']),
                         'plugins' => [
@@ -46,10 +47,9 @@ use yii\web\JsExpression;
                             'imagemanager',
                             'filemanager',
                             'video'
-                        ],
-                    ],
-                ]);
-                ?>
+                        ]
+                    ]
+                ]) ?>
 
                 <?php echo $form->field($model, 'thumbnail')->widget(
                     Upload::class,
@@ -73,6 +73,17 @@ use yii\web\JsExpression;
                 <?php echo $form->field($model, 'view')->textInput(['maxlength' => true]) ?>
 
                 <?php echo $form->field($model, 'status')->checkbox() ?>
+
+                <?php echo $form->field($model, 'published_at')->widget(
+                    DateTimePicker::class,
+                    [
+                        'type' => DateTimePicker::TYPE_INLINE,
+                        'pluginOptions' => [
+                            'format' => 'yyyy-mm-dd hh:ii:ss',
+                            'todayBtn' => true
+                        ]
+                    ]
+                ) ?>
                 
             </div>
             <div class="card-footer">

@@ -50,7 +50,7 @@ class PageController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -65,11 +65,20 @@ class PageController extends Controller
         $model = new Page();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $response = Yii::$app->response;
+            $response->format = \yii\web\Response::FORMAT_JSON;
+
+            return [
+                'code' => $response->getStatusCode(),
+                'status' => $response->statusText,
+                'data' => $model
+            ];
         }
-        return $this->render('create', [
-            'model' => $model,
+
+        return $this->renderAjax('create', [
+            'model' => $model
         ]);
+
     }
 
     /**
@@ -83,11 +92,20 @@ class PageController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $response = Yii::$app->response;
+            $response->format = \yii\web\Response::FORMAT_JSON;
+
+            return [
+                'code' => $response->getStatusCode(),
+                'status' => $response->statusText,
+                'data' => $model
+            ];
         }
-        return $this->render('update', [
-            'model' => $model,
+
+        return $this->renderAjax('update', [
+            'model' => $model
         ]);
+
     }
 
     /**

@@ -123,6 +123,7 @@ echo ModalAjax::widget([
     'header' => '',
     'size' => 'modal-lg',
     'autoClose' => true,
+    'closeButton' => false,
     'pjaxContainer' => '#grid-<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-pjax'
 ]);
 ?>

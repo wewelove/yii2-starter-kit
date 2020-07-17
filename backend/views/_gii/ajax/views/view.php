@@ -21,9 +21,6 @@ use yii\widgets\DetailView;
  * @var <?php echo ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = $model-><?php echo $generator->getNameAttribute() ?>;
-$this->params['breadcrumbs'][] = ['label' => <?php echo $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
     <div class="card">

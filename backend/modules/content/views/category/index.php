@@ -1,4 +1,6 @@
 <?php
+use common\grid\EnumColumn;
+use common\models\ArticleCategory;
 
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -26,7 +28,10 @@ Pjax::begin([
 <div class="article-category-index">
     <div class="card">
         <div class="card-header">
-            <?php echo Html::a(FAS::icon('plus'), ['create'], [ 'class' => 'btn btn-success btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); ?>
+            <?php echo Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
+                ['create'], 
+                [ 'class' => 'btn btn-success btn-sm btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]);
+            ?>
         </div>
 
         <div class="card-body p-0">
@@ -43,18 +48,25 @@ Pjax::begin([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'options' => ['style' => 'width: 60px'],
+                    ],
 
-                    'id',
                     'slug',
                     'title',
-                    'body:ntext',
-                    'parent_id',
-                    // 'status',
-                    // 'created_at',
-                    // 'updated_at',
-                    
-                    ['class' => \common\widgets\ActionColumn::class],
+                    [
+                        'class' => EnumColumn::class,
+                        'attribute' => 'status',
+                        'options' => ['style' => 'width: 10%'],
+                        'enum' => ArticleCategory::statuses(),
+                        'filter' => ArticleCategory::statuses(),
+                    ],
+                    [
+                        'class' => \common\widgets\ActionColumn::class,
+                        'header' => Yii::t('common', 'Actions'),
+                        'options' => ['style' => 'width: 120px'],
+                    ],
                 ],
             ]); ?>
     
@@ -75,6 +87,7 @@ echo ModalAjax::widget([
     'header' => '',
     'size' => 'modal-lg',
     'autoClose' => true,
+    'closeButton' => false,
     'pjaxContainer' => '#grid-article-category-pjax'
 ]);
 ?>

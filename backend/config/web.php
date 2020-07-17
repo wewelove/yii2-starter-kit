@@ -40,6 +40,12 @@ $config = [
             'class' => backend\modules\rbac\Module::class,
             'defaultRoute' => 'rbac-auth-item/index',
         ],
+        'redactor' => [
+            'class' => 'yii\redactor\RedactorModule',
+            'uploadDir' => '@storage/web/source',
+            'uploadUrl' => '@storageUrl/source',
+            'imageAllowExtensions'=>['jpg','png','gif']
+        ]
     ],
     'as globalAccess' => [
         'class' => common\behaviors\GlobalAccessBehavior::class,

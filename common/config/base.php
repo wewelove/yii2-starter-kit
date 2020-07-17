@@ -5,6 +5,7 @@ $config = [
     'extensions' => require(__DIR__ . '/../../vendor/yiisoft/extensions.php'),
     'sourceLanguage' => 'en-US',
     'language' => 'zh-CN',
+    'timeZone' => 'Asia/Shanghai',
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -36,7 +37,12 @@ $config = [
         ],
 
         'formatter' => [
-            'class' => yii\i18n\Formatter::class
+            'class' => yii\i18n\Formatter::class,
+            'dateFormat' => 'yyyy-MM-dd',
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'CNY',
         ],
 
         'glide' => [

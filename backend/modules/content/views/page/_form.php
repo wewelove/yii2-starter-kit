@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
+use yii\web\JsExpression;
+use trntv\filekit\widget\Upload;
 
 /**
  * @var yii\web\View $this
@@ -26,10 +28,11 @@ use yii\bootstrap4\ActiveForm;
                     ->textInput(['maxlength' => true]) 
                 ?>
 
-                <?php echo $form->field($model, 'body')->widget('vova07\imperavi\Widget', [
-                    'settings' => [
+                <?php echo $form->field($model, 'body')->widget('yii\redactor\widgets\Redactor', [
+                    'clientOptions' => [
                         'lang' => 'zh_cn',
                         'minHeight' => 200,
+                        'imageManagerJson' => Url::to(['/redactor/upload/image-json']),
                         'imageUpload' => Url::to(['/file/storage/upload-imperavi']),
                         'fileUpload' => Url::to(['/file/storage/upload-imperavi']),
                         'plugins' => [
@@ -39,10 +42,9 @@ use yii\bootstrap4\ActiveForm;
                             'imagemanager',
                             'filemanager',
                             'video'
-                        ],
-                    ],
-                ]);
-                ?>
+                        ]
+                    ]
+                ]) ?>
 
                 <?php echo $form->field($model, 'view')->textInput(['maxlength' => true]) ?>
                 <?php echo $form->field($model, 'status')->checkbox() ?>

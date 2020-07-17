@@ -18,15 +18,12 @@ echo "<?php\n";
  * @var <?php echo ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = <?php echo $generator->generateString('Update') ?> ;
-$this->params['breadcrumbs'][] = ['label' => <?php echo $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model-><?php echo $generator->getNameAttribute() ?>, 'url' => ['view', <?php echo $urlParams ?>]];
-$this->params['breadcrumbs'][] = <?php echo $generator->generateString('Update') ?>;
+$this->title = Yii::t('backend', 'Update');
 ?>
 <div class="<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-update">
-    <nav class="navbar border-bottom">
-        <span class="navbar-brand mb-0"><?php echo $this->title; ?> </span>
-    </nav>
+    <div class="modal-header">
+        <h5 class="modal-title"><?php echo "<?php echo"; ?> $this->title; ?> </h5>
+    </div>
     
     <div class="fancybox-slim-scroll p-4">
 

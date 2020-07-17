@@ -8,13 +8,11 @@ use yii\widgets\DetailView;
  * @var common\models\ArticleCategory $model
  */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Article Categories'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="article-category-view">
     <div class="card">
-        <div class="card-body">
+        <div class="card-body p-0">
             <?php echo DetailView::widget([
                 'model' => $model,
                 'attributes' => [

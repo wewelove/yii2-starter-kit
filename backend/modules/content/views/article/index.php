@@ -9,7 +9,6 @@ use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use rmrevin\yii\fontawesome\FAS;
-use ivankff\yii2ModalAjax\ModalAjax;
 
 /**
  * @var yii\web\View $this
@@ -52,17 +51,10 @@ Pjax::begin(['id' => 'grid-article-pjax']);
                         'class' => 'yii\grid\SerialColumn',
                         'options' => ['style' => 'width: 60px'],
                     ],
-                    [
-                        'attribute' => 'slug',
-                        'options' => ['style' => 'width: 20%'],
-                    ],
-                    [
-                        'attribute' => 'title',
-                        'options' => ['style' => 'width: 20%'],
-                    ],
+                    'slug',
+                    'title',
                     [
                         'attribute' => 'category_id',
-                        'options' => ['style' => 'width: 10%'],
                         'value' => function ($model) {
                             return $model->category ? $model->category->title : null;
                         },
@@ -71,13 +63,13 @@ Pjax::begin(['id' => 'grid-article-pjax']);
                     [
                         'class' => EnumColumn::class,
                         'attribute' => 'status',
-                        'options' => ['style' => 'width: 10%'],
+                        'options' => ['style' => 'width: 100px'],
                         'enum' => Article::statuses(),
                         'filter' => Article::statuses(),
                     ],
                     [
                         'attribute' => 'published_at',
-                        'options' => ['style' => 'width: 15%'],
+                        'options' => ['style' => 'width: 200px'],
                         'format' => 'datetime',
                         'filter' => DatePicker::widget([
                             'model' => $searchModel,
@@ -85,7 +77,6 @@ Pjax::begin(['id' => 'grid-article-pjax']);
                             'type' => DatePicker::TYPE_COMPONENT_APPEND,
                             'pluginOptions' => [
                                 'format' => 'yyyy-mm-dd',
-                                'showMeridian' => true,
                                 'todayBtn' => true,
                                 'endDate' => '0d',
                             ]
@@ -93,7 +84,7 @@ Pjax::begin(['id' => 'grid-article-pjax']);
                     ],
                     [
                         'attribute' => 'created_at',
-                        'options' => ['style' => 'width: 15%'],
+                        'options' => ['style' => 'width: 200px'],
                         'format' => 'datetime',
                         'filter' => DatePicker::widget([
                             'model' => $searchModel,
@@ -101,7 +92,6 @@ Pjax::begin(['id' => 'grid-article-pjax']);
                             'type' => DatePicker::TYPE_COMPONENT_APPEND,
                             'pluginOptions' => [
                                 'format' => 'yyyy-mm-dd',
-                                'showMeridian' => true,
                                 'todayBtn' => true,
                                 'endDate' => '0d',
                             ]
@@ -125,19 +115,23 @@ Pjax::begin(['id' => 'grid-article-pjax']);
     </div>
 </div>
 
+
+
 <?php
 echo newerton\fancybox3\FancyBox::widget([
     'target' => '.btn-iframe-modal',
     'config' => [
+        'type' => 'iframe',
         'iframe' => [
             'css' => [
                 'width' => '1000px',
                 'height' => '80%'
             ]
          ],
-        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-article-pjax', timeout : 5000 }); }"),
+        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-article-pjax'}); }"),
     ]
 ]);
 ?>
 
 <?php Pjax::end(); ?>
+

@@ -38,7 +38,7 @@ Pjax::begin(['id' => 'grid-<?php echo Inflector::camel2id(StringHelper::basename
         <div class="card-header">
             <?php echo "<?php echo " ?>Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
                 ['create'], 
-                ['class' => 'btn btn-success btn-sm btn-iframe-modal', 'data-type' => 'iframe']);  
+                ['class' => 'btn btn-success btn-sm btn-iframe-modal', 'title' => Yii::t('backend', 'Create')]);  
             ?>
         </div>
 
@@ -114,13 +114,14 @@ Pjax::begin(['id' => 'grid-<?php echo Inflector::camel2id(StringHelper::basename
 echo newerton\fancybox3\FancyBox::widget([
     'target' => '.btn-iframe-modal',
     'config' => [
+        'type' => 'iframe',
         'iframe' => [
             'css' => [
                 'width' => '1000px',
                 'height' => '80%'
             ]
          ],
-        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-pjax', timeout : 5000 }); }"),
+        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-pjax'}); }"),
     ]
 ]);
 ?>

@@ -10,7 +10,7 @@ $(function () {
 
     // 设置 Fancybox 弹框滚动条
     function setFancyboxSlimscroll() {
-        var height = $(window).height() - 60 + 'px';
+        var height = $(window).height() - 65 + 'px';
 
         $(".fancybox-slim-scroll").slimScroll({
             width: '100%',  // 可滚动区域宽度

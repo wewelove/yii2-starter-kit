@@ -51,14 +51,12 @@ class ActionColumn extends \yii\grid\ActionColumn
                         $title = Yii::t('yii', 'View');
                         $defaultOptions = [
                             'class' => ['btn', 'btn-info', 'btn-xs', 'btn-iframe-modal', 'btn-ajax-modal'],
-                            'data-type' => 'iframe'
                         ];
                         break;
                     case 'update':
                         $title = Yii::t('yii', 'Update');
                         $defaultOptions = [
                             'class' => ['btn', 'btn-warning', 'btn-xs', 'btn-iframe-modal', 'btn-ajax-modal'],
-                            'data-type' => 'iframe'
                         ];
                         break;
                     case 'delete':

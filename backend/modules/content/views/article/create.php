@@ -6,18 +6,17 @@
  */
 
 $this->title = Yii::t('backend', 'Create');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Articles'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-create">
-    <nav class="navbar border-bottom">
-        <span class="navbar-brand mb-0"><?php echo $this->title; ?> </span>
-    </nav>
+    <div class="modal-header">
+        <h5 class="modal-title"><?php echo $this->title; ?> </h5>
+    </div>
 
     <div class="fancybox-slim-scroll p-4">
 
         <?php echo $this->render('_form', [
             'model' => $model,
+            'categories' => $categories,
         ]) ?>
 
     </div>

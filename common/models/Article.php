@@ -187,13 +187,4 @@ class Article extends ActiveRecord
     {
         return $this->hasMany(ArticleAttachment::class, ['article_id' => 'id']);
     }
-
-
-    /**
-     * @return Array
-     */
-    public function allActiveCategories()
-    {
-        return ArrayHelper::map(ArticleCategory::find()->active()->all(), 'id', 'title');
-    }
 }

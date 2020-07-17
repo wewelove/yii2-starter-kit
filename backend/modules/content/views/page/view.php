@@ -8,23 +8,10 @@ use yii\widgets\DetailView;
  * @var common\models\Page $model
  */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Pages'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-view">
     <div class="card">
-        <div class="card-header">
-            <?php echo Html::a(Yii::t('backend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?php echo Html::a(Yii::t('backend', 'Delete'), ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => Yii::t('backend', 'Are you sure you want to delete this item?'),
-                    'method' => 'post',
-                ],
-            ]) ?>
-        </div>
-        <div class="card-body">
+        <div class="card-body p-0">
             <?php echo DetailView::widget([
                 'model' => $model,
                 'attributes' => [
@@ -40,8 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $statuses[$model->status];
                         },
                     ],
-                    'created_at',
-                    'updated_at',
+                    'created_at:datetime',
+                    'updated_at:datetime',
                 ],
             ]) ?>
         </div>
