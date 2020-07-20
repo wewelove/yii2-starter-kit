@@ -117,7 +117,7 @@ echo newerton\fancybox3\FancyBox::widget([
         'type' => 'iframe',
         'iframe' => [
             'css' => [
-                'width' => '1000px',
+                'width' => '60%',
                 'height' => '80%'
             ]
          ],
