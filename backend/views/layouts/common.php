@@ -222,12 +222,6 @@ $logEntries[] = [
                             'options' => ['class' => 'nav-header'],
                         ],
                         [
-                            'label' => Yii::t('backend', 'Static pages'),
-                            'url' => ['/content/page/index'],
-                            'icon' => FAS::icon('thumbtack', ['class' => ['nav-icon']]),
-                            'active' => Yii::$app->controller->id === 'page',
-                        ],
-                        [
                             'label' => Yii::t('backend', 'Articles'),
                             'url' => '#',
                             'icon' => FAS::icon('newspaper', ['class' => ['nav-icon']]),
@@ -238,16 +232,22 @@ $logEntries[] = [
                                 [
                                     'label' => Yii::t('backend', 'Articles'),
                                     'url' => ['/content/article/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('newspaper', ['class' => ['nav-icon']]),
                                     'active' => Yii::$app->controller->id === 'article',
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Categories'),
                                     'url' => ['/content/category/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('th', ['class' => ['nav-icon']]),
                                     'active' => Yii::$app->controller->id === 'category',
                                 ],
                             ],
+                        ],
+                        [
+                            'label' => Yii::t('backend', 'Pages'),
+                            'url' => ['/content/page/index'],
+                            'icon' => FAS::icon('laptop-code', ['class' => ['nav-icon']]),
+                            'active' => Yii::$app->controller->id === 'page',
                         ],
                         [
                             'label' => Yii::t('backend', 'Widgets'),
@@ -259,19 +259,19 @@ $logEntries[] = [
                                 [
                                     'label' => Yii::t('backend', 'Text Blocks'),
                                     'url' => ['/widget/text/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('font', ['class' => ['nav-icon']]),
                                     'active' => Yii::$app->controller->id === 'text',
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Menu'),
                                     'url' => ['/widget/menu/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('bars', ['class' => ['nav-icon']]),
                                     'active' => Yii::$app->controller->id === 'menu',
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Carousel'),
                                     'url' => ['/widget/carousel/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('images', ['class' => ['nav-icon']]),
                                     'active' => in_array(Yii::$app->controller->id, ['carousel', 'carousel-item']),
                                 ],
                             ],
@@ -302,22 +302,32 @@ $logEntries[] = [
                                 [
                                     'label' => Yii::t('backend', 'Assignments'),
                                     'url' => ['/rbac/rbac-auth-assignment/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('portrait', ['class' => ['nav-icon']]),
                                 ],
                                 [
-                                    'label' => Yii::t('backend', 'Items'),
+                                    'label' => Yii::t('backend', 'Roles'),
                                     'url' => ['/rbac/rbac-auth-item/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('user-tie', ['class' => ['nav-icon']]),
+                                ],
+                                [
+                                    'label' => Yii::t('backend', 'Permissions'),
+                                    'url' => ['/rbac/rbac-auth-item/index'],
+                                    'icon' => FAS::icon('shield-alt', ['class' => ['nav-icon']]),
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Child Items'),
                                     'url' => ['/rbac/rbac-auth-item-child/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('shield-alt', ['class' => ['nav-icon']]),
+                                ],
+                                [
+                                    'label' => Yii::t('backend', 'Routes'),
+                                    'url' => ['/rbac/rbac-auth-rule/index'],
+                                    'icon' => FAS::icon('globe-asia', ['class' => ['nav-icon']]),
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Rules'),
                                     'url' => ['/rbac/rbac-auth-rule/index'],
-                                    'icon' => FAR::icon('circle', ['class' => ['nav-icon']]),
+                                    'icon' => FAS::icon('grip-horizontal', ['class' => ['nav-icon']]),
                                 ],
                             ],
                         ],
