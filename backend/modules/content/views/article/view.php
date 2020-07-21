@@ -1,5 +1,5 @@
 <?php
-
+use common\models\Article;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -21,17 +21,51 @@ $this->title = Yii::t('backend', 'View');
                 <?php echo DetailView::widget([
                     'model' => $model,
                     'attributes' => [
-                        'id',
+                        [
+                            'attribute' => 'id',
+                            'captionOptions' => [
+                                'style' => 'width: 150px;'
+                            ]
+                        ],
                         'slug',
                         'title',
-                        'body:ntext',
+                        'body:html',
                         'view',
-                        'category_id',
-                        'thumbnail_base_url:url',
-                        'thumbnail_path',
-                        'status',
-                        'created_by',
-                        'updated_by',
+                        [
+                            'attribute' => 'category_id',
+                            'value' => function ($model) {
+                                $query = $model->getCategory();
+                                return $query->one()->title;
+                            },
+                        ],
+                        [
+                            'attribute' => 'thumbnail',
+                            'format' => ['image', ['width'=>'auto','height'=>'100px',]],
+                            'value' => function ($model) {
+                                return $model->thumbnail_base_url . $model->thumbnail_path;
+                            }
+                        ],
+                        [
+                            'attribute' => 'status',
+                            'value' => function ($model) {
+                                $statuses = Article::statuses();
+                                return $statuses[$model->status];
+                            },
+                        ],
+                        [
+                            'attribute' => 'created_by',
+                            'value' => function ($model) {
+                                $query = $model->getAuthor();
+                                return $query->one()->username;
+                            },
+                        ],
+                        [
+                            'attribute' => 'updated_by',
+                            'value' => function ($model) {
+                                $query = $model->getUpdater();
+                                return $query->one()->username;
+                            },
+                        ],
                         'published_at:datetime',
                         'created_at:datetime',
                         'updated_at:datetime',

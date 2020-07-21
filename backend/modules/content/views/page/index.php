@@ -4,6 +4,7 @@ use common\models\Page;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\grid\GridView;
+use kartik\date\DatePicker;
 use rmrevin\yii\fontawesome\FAS;
 use ivankff\yii2ModalAjax\ModalAjax;
 
@@ -57,11 +58,10 @@ Pjax::begin([
                     [
                         'class' => EnumColumn::class,
                         'attribute' => 'status',
+                        'options' => ['style' => 'width: 120px'],
                         'enum' => Page::statuses(),
                         'filter' => Page::statuses(),
                     ],
-                    // 'created_at',
-                    // 'updated_at',
                     [
                         'class' => \common\widgets\ActionColumn::class,
                         'header' => Yii::t('common', 'Actions'),

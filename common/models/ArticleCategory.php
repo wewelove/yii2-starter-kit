@@ -89,8 +89,11 @@ class ArticleCategory extends ActiveRecord
             'id' => Yii::t('common', 'ID'),
             'slug' => Yii::t('common', 'Slug'),
             'title' => Yii::t('common', 'Title'),
+            'body' => Yii::t('common', 'Body'),
             'parent_id' => Yii::t('common', 'Parent Category'),
             'status' => Yii::t('common', 'Active'),
+            'created_at' => Yii::t('common', 'Created At'),
+            'updated_at' => Yii::t('common', 'Updated At'),
         ];
     }
 

@@ -1,5 +1,5 @@
 <?php
-
+use common\models\ArticleCategory;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -20,10 +20,22 @@ use yii\widgets\DetailView;
                     'slug',
                     'title',
                     'body:ntext',
-                    'parent_id',
-                    'status',
-                    'created_at',
-                    'updated_at',
+                    [
+                        'attribute' => 'parent_id',
+                        'value' => function ($model) {
+                            $query = $model->getParent();
+                            return $query->one()->title;
+                        },
+                    ],
+                    [
+                        'attribute' => 'status',
+                        'value' => function ($model) {
+                            $statuses = ArticleCategory::statuses();
+                            return $statuses[$model->status];
+                        },
+                    ],
+                    'created_at:datetime',
+                    'updated_at:datetime',
                     
                 ],
             ]) ?>

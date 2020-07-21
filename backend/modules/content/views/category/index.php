@@ -5,6 +5,7 @@ use common\models\ArticleCategory;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\date\DatePicker;
 use rmrevin\yii\fontawesome\FAS;
 use ivankff\yii2ModalAjax\ModalAjax;
 
@@ -58,7 +59,7 @@ Pjax::begin([
                     [
                         'class' => EnumColumn::class,
                         'attribute' => 'status',
-                        'options' => ['style' => 'width: 10%'],
+                        'options' => ['style' => 'width: 120px'],
                         'enum' => ArticleCategory::statuses(),
                         'filter' => ArticleCategory::statuses(),
                     ],
