@@ -85,7 +85,7 @@ return [
     'On' => 'On',
     'Operating System' => '操作系统',
     'PHP Version' => 'PHP 版本',
-    'Pages' => '静态页面',
+    'Pages' => '页面',
     'Page' => '页面',
     'Password' => '密码',
     'Password Confirm' => '密码确认',
@@ -210,6 +210,9 @@ return [
     'View' => '查看',
     'Frontend Options' => '前台设置',
     'Maintenance mode' => '维护模式',
-    'Backend Options' => '后台设置'
+    'Backend Options' => '后台设置',
+    'Permissions' => '权限',
+    'Roles' => '角色',
+    'Routes' => '路由'
 
 ];

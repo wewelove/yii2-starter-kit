@@ -58,7 +58,7 @@ return [
     'Size' => '大小',
     'Slug' => '标识',
     'Status' => '状态',
-    'Thumbnail' => '缩率图',
+    'Thumbnail' => '缩略图',
     'Title' => '标题',
     'Type' => '类型',
     'Updated At' => '更新时间',
