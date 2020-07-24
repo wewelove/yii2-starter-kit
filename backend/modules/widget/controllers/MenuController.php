@@ -2,17 +2,18 @@
 
 namespace backend\modules\widget\controllers;
 
-use backend\modules\widget\models\search\MenuSearch;
-use common\models\WidgetMenu;
-use common\traits\FormAjaxValidationTrait;
 use Yii;
-use yii\filters\VerbFilter;
+use common\models\WidgetMenu;
+use backend\modules\widget\models\search\MenuSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
+/**
+ * MenuController implements the CRUD actions for WidgetMenu model.
+ */
 class MenuController extends Controller
 {
-    use FormAjaxValidationTrait;
 
     /** @inheritdoc */
     public function behaviors()
@@ -28,72 +29,98 @@ class MenuController extends Controller
     }
 
     /**
+     * Lists all WidgetMenu models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $widgetMenu = new WidgetMenu();
+        $searchModel = new MenuSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $this->performAjaxValidation($widgetMenu);
-
-        if ($widgetMenu->load(Yii::$app->request->post()) && $widgetMenu->save()) {
-            return $this->redirect(['index']);
-        } else {
-            $searchModel = new MenuSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'model' => $widgetMenu,
-            ]);
-        }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
+     * Displays a single WidgetMenu model.
      * @param integer $id
-     *
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        $this->layout = '@backend/views/layouts/base';
+
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new WidgetMenu model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $this->layout = '@backend/views/layouts/base';
+
+        $model = new WidgetMenu();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing WidgetMenu model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $widgetMenu = $this->findWidget($id);
+        $this->layout = '@backend/views/layouts/base';
+        
+        $model = $this->findModel($id);
 
-        $this->performAjaxValidation($widgetMenu);
-
-        if ($widgetMenu->load(Yii::$app->request->post()) && $widgetMenu->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('update', [
-                'model' => $widgetMenu,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
+     * Deletes an existing WidgetMenu model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     *
      * @return mixed
      */
     public function actionDelete($id)
     {
-        $this->findWidget($id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
+     * Finds the WidgetMenu model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     *
      * @return WidgetMenu the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findWidget($id)
+    protected function findModel($id)
     {
         if (($model = WidgetMenu::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

@@ -16,6 +16,7 @@ echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
+use yii\widgets\Pjax;
 use <?php echo $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 use rmrevin\yii\fontawesome\FAS;
 
@@ -29,7 +30,7 @@ $this->title = <?php echo $generator->generateString(Inflector::pluralize(Inflec
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?php echo "<?php\n"; ?>;
+<?php echo "<?php\n"; ?>
 Pjax::begin(['id' => 'grid-<?php echo Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-pjax']);
 ?>
 
@@ -110,7 +111,7 @@ Pjax::begin(['id' => 'grid-<?php echo Inflector::camel2id(StringHelper::basename
 
 </div>
 
-<?php echo "<?php\n"; ?>;
+<?php echo "<?php\n"; ?>
 echo newerton\fancybox3\FancyBox::widget([
     'target' => '.btn-iframe-modal',
     'config' => [
@@ -126,4 +127,4 @@ echo newerton\fancybox3\FancyBox::widget([
 ]);
 ?>
 
-<?php echo "<?php"; ?>; Pjax::end(); ?>
+<?php echo "<?php"; ?> Pjax::end(); ?>

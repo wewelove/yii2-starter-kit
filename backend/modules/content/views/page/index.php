@@ -63,6 +63,21 @@ Pjax::begin([
                         'filter' => Page::statuses(),
                     ],
                     [
+                        'attribute' => 'created_at',
+                        'options' => ['style' => 'width: 200px'],
+                        'format' => 'datetime',
+                        'filter' => DatePicker::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'created_at',
+                            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                            'pluginOptions' => [
+                                'format' => 'yyyy-mm-dd',
+                                'endDate' => '0d',
+                                'todayBtn' => 'linked',
+                            ]
+                        ]),
+                    ],
+                    [
                         'class' => \common\widgets\ActionColumn::class,
                         'header' => Yii::t('common', 'Actions'),
                         'options' => ['style' => 'width: 120px'],

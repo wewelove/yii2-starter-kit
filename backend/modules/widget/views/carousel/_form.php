@@ -1,38 +1,37 @@
 <?php
 
-use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
-use rmrevin\yii\fontawesome\FAS;
+use yii\bootstrap4\ActiveForm;
 
 /**
- * @var $this  yii\web\View
- * @var $model common\models\WidgetCarousel
+ * @var yii\web\View $this
+ * @var common\models\WidgetCarousel $model
+ * @var yii\bootstrap4\ActiveForm $form
  */
-
 ?>
 
-<?php $form = ActiveForm::begin([
-    'enableClientValidation' => true,
-    'enableAjaxValidation' => false,
-]) ?>
-    <div class="card card-success">
-        <?php if ($model->isNewRecord) : ?>
-        <div class="card-header">
-            <h3 class="card-title">
-                <?php echo Yii::t('backend', 'Create a new carousel') ?>
-            </h3>
-        </div>
-        <?php endif; ?>
-        <div class="card-body">
-            <?php echo $form->field($model, 'key')->textInput(['maxlength' => 1024]) ?>
+<div class="widget-carousel-form">
+    <?php
+     $form = ActiveForm::begin([
+        'layout' => ActiveForm::LAYOUT_HORIZONTAL,
+        'enableClientValidation' => true,
+        'enableAjaxValidation' => false
+    ]); 
+    ?>
+        <div class="card">
+            <div class="card-body">
+                <?php echo $form->errorSummary($model); ?>
 
-            <?php echo $form->field($model, 'status')->checkbox() ?>
+                <?php echo $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
+
+                <?php echo $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
+
+                <?php echo $form->field($model, 'status')->checkbox() ?>
+                
+            </div>
+            <div class="card-footer">
+                <?php echo Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
         </div>
-        <div class="card-footer">
-            <?php echo Html::submitButton(
-                $model->isNewRecord? FAS::icon('save').' '.Yii::t('backend', 'Create'):FAS::icon('save').' '. Yii::t('backend', 'Save Changes'),
-                ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
-            ) ?>
-        </div>
-    </div>
-<?php ActiveForm::end() ?>
+    <?php ActiveForm::end(); ?>
+</div>

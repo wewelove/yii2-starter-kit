@@ -25,7 +25,7 @@ $this->title = Yii::t('backend', 'Update');
         <h5 class="modal-title"><?php echo "<?php echo"; ?> $this->title; ?> </h5>
     </div>
     
-    <div class="fancybox-slim-scroll p-4">
+    <div class="fancybox-slim-scroll p-3">
 
     <?php echo "<?php echo " ?>$this->render('_form', [
         'model' => $model,

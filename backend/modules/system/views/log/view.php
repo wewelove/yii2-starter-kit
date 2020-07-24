@@ -22,7 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php echo DetailView::widget([
     'model' => $model,
     'attributes' => [
-        'id',
+        [
+            'attribute' => 'id',
+            'captionOptions' => [
+                'style' => 'width: 150px;'
+            ]
+        ],
         'level',
         'category',
         [

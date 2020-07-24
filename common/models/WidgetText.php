@@ -87,6 +87,8 @@ class WidgetText extends ActiveRecord
             'title' => Yii::t('common', 'Title'),
             'body' => Yii::t('common', 'Body'),
             'status' => Yii::t('common', 'Active'),
+            'created_at' => Yii::t('common', 'Created At'),
+            'updated_at' => Yii::t('common', 'Updated At'),
         ];
     }
 }

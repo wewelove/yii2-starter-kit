@@ -2,18 +2,19 @@
 
 namespace backend\modules\widget\controllers;
 
-use backend\modules\widget\models\search\CarouselItemSearch;
-use backend\modules\widget\models\search\CarouselSearch;
-use common\models\WidgetCarousel;
-use common\traits\FormAjaxValidationTrait;
 use Yii;
-use yii\filters\VerbFilter;
+use common\models\WidgetCarousel;
+use backend\modules\widget\models\search\CarouselSearch;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
+/**
+ * CarouselController implements the CRUD actions for WidgetCarousel model.
+ */
 class CarouselController extends Controller
 {
-    use FormAjaxValidationTrait;
 
     /** @inheritdoc */
     public function behaviors()
@@ -29,77 +30,98 @@ class CarouselController extends Controller
     }
 
     /**
+     * Lists all WidgetCarousel models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $widgetCarousel = new WidgetCarousel();
+        $searchModel = new CarouselSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $this->performAjaxValidation($widgetCarousel);
-
-        if ($widgetCarousel->load(Yii::$app->request->post()) && $widgetCarousel->save()) {
-            return $this->redirect(['update', 'id' => $widgetCarousel->id]);
-        } else {
-            $searchModel = new CarouselSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'model' => $widgetCarousel,
-            ]);
-        }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**
+     * Displays a single WidgetCarousel model.
      * @param integer $id
-     *
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        $this->layout = '@backend/views/layouts/base';
+
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new WidgetCarousel model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $this->layout = '@backend/views/layouts/base';
+
+        $model = new WidgetCarousel();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing WidgetCarousel model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $widgetCarousel = $this->findWidget($id);
+        $this->layout = '@backend/views/layouts/base';
+        
+        $model = $this->findModel($id);
 
-        $this->performAjaxValidation($widgetCarousel);
-
-        $searchModel = new CarouselItemSearch();
-        $carouselItemsProvider = $searchModel->search([]);
-        $carouselItemsProvider->query->andWhere(['carousel_id' => $widgetCarousel->id]);
-
-        if ($widgetCarousel->load(Yii::$app->request->post()) && $widgetCarousel->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('update', [
-                'model' => $widgetCarousel,
-                'carouselItemsProvider' => $carouselItemsProvider,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
+     * Deletes an existing WidgetCarousel model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     *
      * @return mixed
      */
     public function actionDelete($id)
     {
-        $this->findWidget($id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
+     * Finds the WidgetCarousel model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     *
      * @return WidgetCarousel the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findWidget($id)
+    protected function findModel($id)
     {
         if (($model = WidgetCarousel::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

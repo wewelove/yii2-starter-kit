@@ -79,8 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'type' => DatePicker::TYPE_COMPONENT_APPEND,
                         'pluginOptions' => [
                             'format' => 'dd-mm-yyyy',
-                            'showMeridian' => true,
-                            'todayBtn' => true,
+                            'todayBtn' => 'linked',
                             'endDate' => '0d',
                         ]
                     ]),

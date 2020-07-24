@@ -2,12 +2,13 @@
 
 namespace backend\modules\widget\models\search;
 
-use common\models\WidgetCarouselItem;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\WidgetCarouselItem;
 
 /**
- * WidgetCarouselItemSearch represents the model behind the search form about `common\models\WidgetCarouselItem`.
+ * CarouselItemSearch represents the model behind the search form about `common\models\WidgetCarouselItem`.
  */
 class CarouselItemSearch extends WidgetCarouselItem
 {
@@ -17,8 +18,8 @@ class CarouselItemSearch extends WidgetCarouselItem
     public function rules()
     {
         return [
-            [['id', 'carousel_id', 'status', 'order'], 'integer'],
-            [['path', 'url', 'caption'], 'safe'],
+            [['id', 'carousel_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['base_url', 'path', 'asset_url', 'type', 'url', 'caption'], 'safe'],
         ];
     }
 
@@ -38,7 +39,7 @@ class CarouselItemSearch extends WidgetCarouselItem
      *
      * @return ActiveDataProvider
      */
-    public function search($params = null)
+    public function search($carousel_id)
     {
         $query = WidgetCarouselItem::find();
 
@@ -46,20 +47,9 @@ class CarouselItemSearch extends WidgetCarouselItem
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
-
         $query->andFilterWhere([
-            'id' => $this->id,
-            'carousel_id' => $this->carousel_id,
-            'status' => $this->status,
-            'order' => $this->order,
+            'carousel_id' => $carousel_id,
         ]);
-
-        $query->andFilterWhere(['like', 'path', $this->path])
-            ->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'caption', $this->caption]);
 
         return $dataProvider;
     }

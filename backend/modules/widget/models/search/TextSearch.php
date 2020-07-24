@@ -2,10 +2,14 @@
 
 namespace backend\modules\widget\models\search;
 
-use common\models\WidgetText;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\WidgetText;
 
+/**
+ * TextSearch represents the model behind the search form about `common\models\WidgetText`.
+ */
 class TextSearch extends WidgetText
 {
     /**
@@ -15,6 +19,7 @@ class TextSearch extends WidgetText
     {
         return [
             [['id', 'status'], 'integer'],
+            [['created_at', 'updated_at'], 'default', 'value' => null],
             [['key', 'title', 'body'], 'safe'],
         ];
     }
@@ -30,6 +35,8 @@ class TextSearch extends WidgetText
 
     /**
      * Creates data provider instance with search query applied
+     *
+     * @param array $params
      *
      * @return ActiveDataProvider
      */
@@ -47,8 +54,12 @@ class TextSearch extends WidgetText
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'status' => $this->status
         ]);
+
+        if ($this->created_at !== null) {
+            $query->andFilterWhere(['between', 'created_at', strtotime($this->created_at), strtotime($this->created_at) + 3600 * 24]);
+        }
 
         $query->andFilterWhere(['like', 'key', $this->key])
             ->andFilterWhere(['like', 'title', $this->title])

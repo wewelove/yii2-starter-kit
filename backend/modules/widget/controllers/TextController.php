@@ -2,17 +2,18 @@
 
 namespace backend\modules\widget\controllers;
 
-use backend\modules\widget\models\search\TextSearch;
-use common\models\WidgetText;
-use common\traits\FormAjaxValidationTrait;
 use Yii;
-use yii\filters\VerbFilter;
+use common\models\WidgetText;
+use backend\modules\widget\models\search\TextSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
+/**
+ * TextController implements the CRUD actions for WidgetText model.
+ */
 class TextController extends Controller
 {
-    use FormAjaxValidationTrait;
 
     /** @inheritdoc */
     public function behaviors()
@@ -28,72 +29,98 @@ class TextController extends Controller
     }
 
     /**
+     * Lists all WidgetText models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $widgetText = new WidgetText();
+        $searchModel = new TextSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $this->performAjaxValidation($widgetText);
-
-        if ($widgetText->load(Yii::$app->request->post()) && $widgetText->save()) {
-            return $this->redirect(['index']);
-        } else {
-            $searchModel = new TextSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'model' => $widgetText,
-            ]);
-        }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
+     * Displays a single WidgetText model.
      * @param integer $id
-     *
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        $this->layout = '@backend/views/layouts/base';
+
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new WidgetText model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $this->layout = '@backend/views/layouts/base';
+
+        $model = new WidgetText();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing WidgetText model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $widgetText = $this->findWidget($id);
+        $this->layout = '@backend/views/layouts/base';
+        
+        $model = $this->findModel($id);
 
-        $this->performAjaxValidation($widgetText);
-
-        if ($widgetText->load(Yii::$app->request->post()) && $widgetText->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('update', [
-                'model' => $widgetText,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
+     * Deletes an existing WidgetText model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     *
      * @return mixed
      */
     public function actionDelete($id)
     {
-        $this->findWidget($id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
+     * Finds the WidgetText model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     *
      * @return WidgetText the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findWidget($id)
+    protected function findModel($id)
     {
         if (($model = WidgetText::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

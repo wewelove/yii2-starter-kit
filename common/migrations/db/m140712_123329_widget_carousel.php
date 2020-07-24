@@ -12,6 +12,7 @@ class m140712_123329_widget_carousel extends Migration
         $this->createTable('{{%widget_carousel}}', [
             'id' => $this->primaryKey(),
             'key' => $this->string()->notNull(),
+            'description' => $this->string()->notNull(),
             'status' => $this->smallInteger()->defaultValue(0)
         ]);
 

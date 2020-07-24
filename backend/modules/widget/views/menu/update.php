@@ -1,19 +1,23 @@
 <?php
 
 /**
- * @var $this  yii\web\View
- * @var $model common\models\WidgetMenu
+ * @var yii\web\View $this
+ * @var common\models\WidgetMenu $model
  */
 
-$this->title = Yii::t('backend', 'Update {modelClass}: ', [
-        'modelClass' => 'Widget Menu',
-    ]) . ' ' . $model->title;
-
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Widget Menus'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
-
+$this->title = Yii::t('backend', 'Update');
 ?>
+<div class="widget-menu-update">
+    <div class="modal-header">
+        <h5 class="modal-title"><?php echo $this->title; ?> </h5>
+    </div>
+    
+    <div class="fancybox-slim-scroll p-3">
 
-<?php echo $this->render('_form', [
-    'model' => $model,
-]) ?>
+    <?php echo $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
+    </div>
+
+</div>

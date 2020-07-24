@@ -4,8 +4,8 @@ use common\grid\EnumColumn;
 use common\models\Article;
 use common\models\ArticleCategory;
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use rmrevin\yii\fontawesome\FAS;
@@ -77,8 +77,8 @@ Pjax::begin(['id' => 'grid-article-pjax']);
                             'type' => DatePicker::TYPE_COMPONENT_APPEND,
                             'pluginOptions' => [
                                 'format' => 'yyyy-mm-dd',
-                                'todayBtn' => true,
                                 'endDate' => '0d',
+                                'todayBtn' => 'linked',
                             ]
                         ]),
                     ],
@@ -92,8 +92,8 @@ Pjax::begin(['id' => 'grid-article-pjax']);
                             'type' => DatePicker::TYPE_COMPONENT_APPEND,
                             'pluginOptions' => [
                                 'format' => 'yyyy-mm-dd',
-                                'todayBtn' => true,
                                 'endDate' => '0d',
+                                'todayBtn' => 'linked',
                             ]
                         ]),
                     ],

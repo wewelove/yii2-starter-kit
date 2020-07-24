@@ -15,7 +15,7 @@ $this->title = Yii::t('backend', 'View');
         <h5 class="modal-title"><?php echo $this->title; ?> </h5>
     </div>
 
-    <div class="fancybox-slim-scroll p-4">
+    <div class="fancybox-slim-scroll p-3">
         <div class="card">
             <div class="card-body p-0">
                 <?php echo DetailView::widget([

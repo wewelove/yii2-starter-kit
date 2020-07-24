@@ -62,6 +62,7 @@ Pjax::begin([
                     ],
                     [
                         'attribute' => 'created_at',
+                        'options' => ['style' => 'width: 200px'],
                         'format' => 'datetime',
                         'filter' => DatePicker::widget([
                             'model' => $searchModel,
@@ -69,14 +70,14 @@ Pjax::begin([
                             'type' => DatePicker::TYPE_COMPONENT_APPEND,
                             'pluginOptions' => [
                                 'format' => 'yyyy-mm-dd',
-                                'showMeridian' => true,
-                                'todayBtn' => true,
                                 'endDate' => '0d',
+                                'todayBtn' => 'linked',
                             ]
                         ]),
                     ],
                     [
                         'attribute' => 'logged_at',
+                        'options' => ['style' => 'width: 200px'],
                         'format' => 'datetime',
                         'filter' => DatePicker::widget([
                             'model' => $searchModel,
@@ -84,9 +85,8 @@ Pjax::begin([
                             'type' => DatePicker::TYPE_COMPONENT_APPEND,
                             'pluginOptions' => [
                                 'format' => 'yyyy-mm-dd',
-                                'showMeridian' => true,
-                                'todayBtn' => true,
                                 'endDate' => '0d',
+                                'todayBtn' => 'linked',
                             ]
                         ]),
                     ],

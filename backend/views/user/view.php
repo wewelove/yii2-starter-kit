@@ -14,7 +14,12 @@ use yii\widgets\DetailView;
             <?php echo DetailView::widget([
                 'model' => $model,
                 'attributes' => [
-                    'id',
+                    [
+                        'attribute' => 'id',
+                        'captionOptions' => [
+                            'style' => 'width: 150px;'
+                        ]
+                    ],
                     'username',
                     'email:email',
                     [

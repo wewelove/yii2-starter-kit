@@ -80,7 +80,7 @@ use yii\web\JsExpression;
                         'type' => DateTimePicker::TYPE_INLINE,
                         'pluginOptions' => [
                             'format' => 'yyyy-mm-dd hh:ii:ss',
-                            'todayBtn' => true
+                            'todayBtn' => 'linked'
                         ]
                     ]
                 ) ?>

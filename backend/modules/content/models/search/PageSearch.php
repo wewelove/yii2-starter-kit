@@ -18,7 +18,8 @@ class PageSearch extends Page
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'status'], 'integer'],
+            [['created_at', 'updated_at'], 'default', 'value' => null],
             [['slug', 'title', 'body', 'view'], 'safe'],
         ];
     }
@@ -54,9 +55,11 @@ class PageSearch extends Page
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
+
+        if ($this->created_at !== null) {
+            $query->andFilterWhere(['between', 'created_at', strtotime($this->created_at), strtotime($this->created_at) + 3600 * 24]);
+        }
 
         $query->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'title', $this->title])

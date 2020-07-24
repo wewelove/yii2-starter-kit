@@ -2,12 +2,13 @@
 
 namespace backend\modules\widget\models\search;
 
-use common\models\WidgetMenu;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\WidgetMenu;
 
 /**
- * WidgetMenuSearch represents the model behind the search form about `common\models\WidgetMenu`.
+ * MenuSearch represents the model behind the search form about `common\models\WidgetMenu`.
  */
 class MenuSearch extends WidgetMenu
 {
@@ -33,6 +34,8 @@ class MenuSearch extends WidgetMenu
 
     /**
      * Creates data provider instance with search query applied
+     *
+     * @param array $params
      *
      * @return ActiveDataProvider
      */

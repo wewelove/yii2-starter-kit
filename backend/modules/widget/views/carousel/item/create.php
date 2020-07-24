@@ -1,20 +1,22 @@
 <?php
+
 /**
- * @var $this     yii\web\View
- * @var $model    common\models\WidgetCarouselItem
- * @var $carousel common\models\WidgetCarousel
+ * @var yii\web\View $this
+ * @var common\models\WidgetCarouselItem $model
  */
 
-$this->title = Yii::t('backend', 'Create {modelClass}', [
-    'modelClass' => 'Widget Carousel Item',
-]);
-
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Widget Carousel Items'), 'url' => ['/widget/carousel/index']];
-$this->params['breadcrumbs'][] = ['label' => $carousel->key, 'url' => ['/widget/carousel/update', 'id' => $carousel->id]];
-$this->params['breadcrumbs'][] = Yii::t('backend', 'Create');
-
+$this->title = Yii::t('backend', 'Create');
 ?>
+<div class="widget-carousel-item-create">
+    <div class="modal-header">
+        <h5 class="modal-title"><?php echo $this->title; ?> </h5>
+    </div>
 
-<?php echo $this->render('_form', [
-    'model' => $model,
-]) ?>
+    <div class="fancybox-slim-scroll p-3">
+
+        <?php echo $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+        
+    </div>
+</div>

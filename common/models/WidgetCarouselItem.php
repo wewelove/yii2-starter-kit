@@ -28,6 +28,9 @@ use yii\db\ActiveRecord;
  */
 class WidgetCarouselItem extends ActiveRecord
 {
+    const STATUS_DRAFT = 0;
+    const STATUS_ACTIVE = 1;
+    
     /**
      * @var array|null
      */
@@ -107,6 +110,7 @@ class WidgetCarouselItem extends ActiveRecord
             'image' => Yii::t('common', 'Image'),
             'base_url' => Yii::t('common', 'Base URL'),
             'path' => Yii::t('common', 'Path'),
+            'asset_url' => Yii::t('common', 'Asset URL'),
             'type' => Yii::t('common', 'File Type'),
             'url' => Yii::t('common', 'Url'),
             'caption' => Yii::t('common', 'Caption'),
@@ -116,10 +120,29 @@ class WidgetCarouselItem extends ActiveRecord
     }
 
     /**
+     * @return array statuses list
+     */
+    public static function statuses()
+    {
+        return [
+            self::STATUS_DRAFT => Yii::t('common', 'Draft'),
+            self::STATUS_ACTIVE => Yii::t('common', 'Active'),
+        ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCarousel()
     {
         return $this->hasOne(WidgetCarousel::class, ['id' => 'carousel_id']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAssetUrl()
+    {
+        return Yii::getAlias($this->base_url . $this->path);
     }
 }

@@ -66,10 +66,10 @@ class WidgetCarousel extends ActiveRecord
     public function rules()
     {
         return [
-            [['key'], 'required'],
+            [['key', 'description'], 'required'],
             [['key'], 'unique'],
             [['status'], 'integer'],
-            [['key'], 'string', 'max' => 255]
+            [['key', 'description'], 'string', 'max' => 255]
         ];
     }
 
@@ -81,6 +81,7 @@ class WidgetCarousel extends ActiveRecord
         return [
             'id' => Yii::t('common', 'ID'),
             'key' => Yii::t('common', 'Key'),
+            'description' => Yii::t('common', 'Description'),
             'status' => Yii::t('common', 'Active'),
         ];
     }
