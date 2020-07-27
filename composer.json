@@ -59,8 +59,7 @@
         "leandrogehlen/yii2-treegrid": "^1.1",
         "newerton/yii2-fancybox-3": "dev-master",
         "zxp/yii2-simditor": "^1.0",
-        "yiidoc/yii2-redactor": "^2.0",
-        "2amigos/yii2-ckeditor-widget" : "2.0"
+        "yiidoc/yii2-redactor": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "^2.0.0",
