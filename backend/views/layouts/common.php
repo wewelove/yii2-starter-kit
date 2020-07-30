@@ -198,6 +198,7 @@ $logEntries[] = [
                         ],
                         'role' => 'menu',
                     ],
+                    // 'items' => \mdm\admin\components\MenuHelper::getAssignedMenu(Yii::$app->user->id),
                     'items' => [
                         [
                             'label' => Yii::t('backend', 'Main'),
@@ -293,41 +294,46 @@ $logEntries[] = [
                             'options' => ['class' => 'nav-header'],
                         ],
                         [
+                            'label' => Yii::t('backend', 'User Management'),
+                            'url' => ['/user/index'],
+                            'icon' => FAS::icon('users', ['class' => ['nav-icon']]),
+                        ],
+                        [
                             'label' => Yii::t('backend', 'RBAC Rules'),
                             'url' => '#',
                             'icon' => FAS::icon('user-shield', ['class' => ['nav-icon']]),
                             'options' => ['class' => 'nav-item has-treeview'],
-                            'active' => (Yii::$app->controller->module->id == 'rbac'),
+                            'active' => (Yii::$app->controller->module->id == 'admin'),
                             'items' => [
                                 [
-                                    'label' => Yii::t('backend', 'Assignments'),
-                                    'url' => ['/rbac/rbac-auth-assignment/index'],
+                                    'label' => Yii::t('backend', 'Assignment'),
+                                    'url' => ['/admin/assignment/index'],
                                     'icon' => FAS::icon('portrait', ['class' => ['nav-icon']]),
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Roles'),
-                                    'url' => ['/rbac/rbac-auth-item/index'],
+                                    'url' => ['/admin/role/index'],
                                     'icon' => FAS::icon('user-tie', ['class' => ['nav-icon']]),
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Permissions'),
-                                    'url' => ['/rbac/rbac-auth-item/index'],
-                                    'icon' => FAS::icon('shield-alt', ['class' => ['nav-icon']]),
-                                ],
-                                [
-                                    'label' => Yii::t('backend', 'Child Items'),
-                                    'url' => ['/rbac/rbac-auth-item-child/index'],
+                                    'url' => ['/admin/permission/index'],
                                     'icon' => FAS::icon('shield-alt', ['class' => ['nav-icon']]),
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Routes'),
-                                    'url' => ['/rbac/rbac-auth-rule/index'],
+                                    'url' => ['/admin/route/index'],
                                     'icon' => FAS::icon('globe-asia', ['class' => ['nav-icon']]),
                                 ],
                                 [
                                     'label' => Yii::t('backend', 'Rules'),
-                                    'url' => ['/rbac/rbac-auth-rule/index'],
+                                    'url' => ['/admin/rule/index'],
                                     'icon' => FAS::icon('grip-horizontal', ['class' => ['nav-icon']]),
+                                ],
+                                [
+                                    'label' => Yii::t('backend', 'Menu'),
+                                    'url' => ['/admin/menu/index'],
+                                    'icon' => FAS::icon('bars', ['class' => ['nav-icon']]),
                                 ],
                             ],
                         ],

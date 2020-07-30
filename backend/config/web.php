@@ -40,11 +40,22 @@ $config = [
             'class' => backend\modules\rbac\Module::class,
             'defaultRoute' => 'rbac-auth-item/index',
         ],
+        'admin' => [
+            'class' => 'mdm\admin\Module'
+        ],
         'redactor' => [
             'class' => 'yii\redactor\RedactorModule',
             'uploadDir' => '@storage/web/source',
             'uploadUrl' => '@storageUrl/source',
             'imageAllowExtensions'=>['jpg','png','gif']
+        ]
+    ],
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/login', 
+            'site/error',
+            '*'
         ]
     ],
     'as globalAccess' => [

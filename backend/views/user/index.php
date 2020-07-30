@@ -9,7 +9,6 @@ use kartik\date\DatePicker;
 use rmrevin\yii\fontawesome\FAS;
 use ivankff\yii2ModalAjax\ModalAjax;
 
-
 /**
  * @var yii\web\View $this
  * @var backend\models\search\UserSearch $searchModel
