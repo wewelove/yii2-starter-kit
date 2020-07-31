@@ -124,7 +124,7 @@ class Menu extends \yii\db\ActiveRecord
             self::$_routes = [];
             foreach (Configs::authManager()->getPermissions() as $name => $value) {
                 if ($name[0] === '/') {
-                    self::$_routes[] = $name;
+                    self::$_routes[] = rtrim($name, '/*');
                 }
             }
         }

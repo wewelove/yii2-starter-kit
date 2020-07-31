@@ -40,10 +40,16 @@ Pjax::begin([
                 'dataProvider' => $dataProvider,
                 'keyColumnName' => 'id',
                 'parentColumnName' => 'parent',
+                'parentRootValue' => '',
+                'pluginOptions' => [
+                    'initialState' => 'collapsed',
+                ],
                 'columns' => [
                     'name',
                     'route',
+                    'icon',
                     'order',
+                    'header',
                     [
                         'class' => 'common\widgets\ActionColumn',
                         'header' => Yii::t('common', 'Actions'),

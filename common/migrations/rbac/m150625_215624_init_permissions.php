@@ -13,12 +13,17 @@ class m150625_215624_init_permissions extends Migration
         $loginToBackend = $this->auth->createPermission('loginToBackend');
         $this->auth->add($loginToBackend);
 
+        $allRoute = $this->auth->createPermission('/*');
+        $this->auth->add($allRoute);
+
         $this->auth->addChild($managerRole, $loginToBackend);
         $this->auth->addChild($administratorRole, $loginToBackend);
+        $this->auth->addChild($administratorRole, $allRoute);
     }
 
     public function down()
     {
         $this->auth->remove($this->auth->getPermission('loginToBackend'));
+        $this->auth->remove($this->auth->getPermission('/*'));
     }
 }

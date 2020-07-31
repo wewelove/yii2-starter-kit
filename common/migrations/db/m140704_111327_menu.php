@@ -21,6 +21,7 @@ class m140704_111327_menu extends \yii\db\Migration
             'route' => $this->string(),
             'icon' => $this->string(),
             'order' => $this->integer(),
+            'header' => $this->integer(),
             'data' => $this->binary()
         ]);
 

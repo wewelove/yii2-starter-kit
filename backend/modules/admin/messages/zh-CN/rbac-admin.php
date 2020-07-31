@@ -65,4 +65,6 @@ return [
     'Menu' => '菜单',
     'Help' => '帮助',
     'Application' => '应用',
-];
+    'Icon' => '图标',
+    'Header' => '菜单分组'
+]; 
