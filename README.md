@@ -1,62 +1,46 @@
 # Yii 2 Starter Kit
 
-<!-- BADGES/ -->
+Yii2 应用模板, 基于 [Yii 2 Starter Kit](https://github.com/yii2-starter-kit/yii2-starter-kit) .
 
-[![Packagist](https://img.shields.io/packagist/v/yii2-starter-kit/yii2-starter-kit.svg)](https://packagist.org/packages/yii2-starter-kit/yii2-starter-kit)
-[![Packagist](https://img.shields.io/packagist/dt/yii2-starter-kit/yii2-starter-kit.svg)](https://packagist.org/packages/yii2-starter-kit/yii2-starter-kit)
-[![Build Status](https://travis-ci.org/yii2-starter-kit/yii2-starter-kit.svg?branch=master)](https://travis-ci.org/yii2-starter-kit/yii2-starter-kit)
-
-<!-- /BADGES -->
-
-This is Yii2 start application template.
-
-It was created and developing as a fast start for building an advanced sites based on Yii2.
-
-It covers typical use cases for a new project and will help you not to waste your time doing the same work in every project
-
-## Before you start
-
-Please, consider helping project via [contributions](https://github.com/yii2-starter-kit/yii2-starter-kit/issues) or [donations](#donations).
-
-## TABLE OF CONTENTS
-- [Demo](#demo)
-- [Features](#features)
-- [Installation](docs/installation.md)
-    - [Manual installation](docs/installation.md#manual-installation)
-    - [Docker installation](docs/installation.md#docker-installation)
-    - [Vagrant installation](docs/installation.md#vagrant-installation)
-- [Components documentation](docs/components.md)
-- [Console commands](docs/console.md)
-- [Testing](docs/testing.md)
+## 目录
+- [演示](#demo)
+- [功能](#features)
+- [安装](docs/installation.md)
+    - [手动安装](docs/installation.md#manual-installation)
+    - [Docker 安装](docs/installation.md#docker-installation)
+    - [Vagrant 安装](docs/installation.md#vagrant-installation)
+- [组件](docs/components.md)
+- [控制台命令](docs/console.md)
+- [测试](docs/testing.md)
 - [FAQ](docs/faq.md)
 - [How to contribute?](#how-to-contribute)
 - [Have any questions?](#have-any-questions)
 
-## Quickstart
-1. [Install composer](https://getcomposer.org)
-2. [Install docker](https://docs.docker.com/install/)
-3. [Install docker-compose](https://docs.docker.com/compose/install/)
-4. Run
+## 开始
+1. [安装 composer](https://getcomposer.org)
+2. [安装 docker](https://docs.docker.com/install/)
+3. [安装 docker-compose](https://docs.docker.com/compose/install/)
+4. 运行
     ```bash
     composer create-project yii2-starter-kit/yii2-starter-kit myproject.com --ignore-platform-reqs
     cd myproject.com
     composer run-script docker:build
     ```
-5. Go to [http://yii2-starter-kit.localhost](http://yii2-starter-kit.localhost)
+5. 打开 [http://yii2-starter-kit.localhost](http://yii2-starter-kit.localhost)
 
-## FEATURES
-### Admin backend
-- Beautiful and open source dashboard theme for backend [AdminLTE 3](https://adminlte.io/themes/v3/)
-- Content management components: articles, categories, static pages, editable menu, editable carousels, text blocks
-- Settings editor. Application settings form (based on KeyStorage component)
-- [File manager](https://github.com/MihailDev/yii2-elfinder)
-- Users, RBAC management
-- Events timeline
-- Logs viewer
-- System monitoring
+## 功能
+### 管理后台
+- 后台前端基本 [AdminLTE 3](https://adminlte.io/themes/v3/)
+- 内容管理组件: 文章, 分类, 静态页面, 前台菜单, 轮播, 文本块
+- 基于键值管理的应用设置
+- [文件管理](https://github.com/MihailDev/yii2-elfinder)
+- 用户, RBAC 权限管理
+- 事件
+- 日志
+- 系统监控
 
 ### I18N
-- Built-in translations:
+- 内置语言:
     - English
     - Spanish
     - Russian
@@ -66,19 +50,19 @@ Please, consider helping project via [contributions](https://github.com/yii2-sta
     - Polish
     - Portuguese (Brazil)
     - Indonesian (Bahasa)
-- Language switcher, built-in behavior to choose locale based on browser preferred language
-- Backend translations manager
+- 语言切换
+- 翻译管理
 
-### Users
-- Sign in
-- Sign up
-- Profile editing(avatar, locale, personal data)
-- Optional activation by email
-- OAuth authorization
-- RBAC with predefined `guest`, `user`, `manager` and `administrator` roles
-- RBAC migrations support
+### 用户
+- 登陆
+- 注册
+- 资料管理
+- 邮件激活
+- 授权
+- RBAC 预定义 `guest`, `user`, `manager` and `administrator` 角色
+- RBAC 迁移
 
-### Development
+### 开发
 - Ready-to-use Docker-based stack (php, nginx, mysql, mailcatcher)
 - .env support
 - [Webpack](https://webpack.js.org/) build configuration
@@ -91,7 +75,7 @@ Please, consider helping project via [contributions](https://github.com/yii2-sta
 - `ExtendedMessageController` with ability to replace source code language and migrate messages between message sources
 - [Some useful shortcuts](https://github.com/yii2-starter-kit/yii2-starter-kit/blob/master/common/helpers.php)
 
-### Other
+### 其它
 - Useful behaviors (GlobalAccessBehavior, CacheInvalidateBehavior)
 - Maintenance mode support ([more](#maintenance-mode))
 - [Aceeditor widget](https://github.com/trntv/yii2-aceeditor)
@@ -105,15 +89,15 @@ Please, consider helping project via [contributions](https://github.com/yii2-sta
 - Built-in [mailcatcher](http://mailcatcher.me/)
 - [Swagger](https://swagger.io/) for API docs.
 
-## DEMO
+## 演示
 Demo is hosted by awesome [Digital Ocean](https://m.do.co/c/d7f000191ea8)
 - Frontend: [http://yii2-starter-kit.terentev.net](http://yii2-starter-kit.terentev.net)
 - Backend: [http://backend.yii2-starter-kit.terentev.net](http://backend.yii2-starter-kit.terentev.net)
 
 `administrator` role account
 ```
-Login: webmaster
-Password: webmaster
+Login: admin    
+Password: admin
 ```
 
 `manager` role account
@@ -134,7 +118,7 @@ You can contribute in any way you want. Any help appreciated, but most of all i 
 ## Have any questions?
 Mail to [eugene@terentev.net](mailto:eugene@terentev.net) or [victor@vgr.cl](mailto:victor@vgr.cl)
 
-## READ MORE
+## 更多
 - [Yii2](https://github.com/yiisoft/yii2/tree/master/docs)
 - [Docker](https://docs.docker.com/get-started/)
 
