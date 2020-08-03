@@ -5,7 +5,7 @@
  * @var common\models\WidgetCarouselItem $model
  */
 
-$this->title = Yii::t('backend', 'Create');
+$this->title = Yii::t('backend', 'Create Item');
 ?>
 <div class="widget-carousel-item-create">
     <div class="modal-header">

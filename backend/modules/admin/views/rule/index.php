@@ -15,10 +15,7 @@ $this->title = Yii::t('rbac-admin', 'Rules');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php
-Pjax::begin([
-    'id' => 'grid-assignment-pjax',
-    'timeout' => 5000,
-]);
+Pjax::begin(['id' => 'grid-rule-pjax']);
 ?>
 
 <div class="rule-index">
@@ -28,7 +25,7 @@ Pjax::begin([
             echo Html::a(
                 FAS::icon('plus') . ' ' . Yii::t('rbac-admin', 'Create'),
                 ['create'],
-                ['class' => 'btn btn-success btn-sm btn-ajax-modal', 'title' => Yii::t('rbac-admin', 'Create')]
+                ['class' => 'btn btn-success btn-sm btn-iframe-modal', 'title' => Yii::t('rbac-admin', 'Create')]
             );
             ?>
         </div>
@@ -72,16 +69,20 @@ Pjax::begin([
     </div>
 </div>
 
-<?php Pjax::end(); ?>
-
 <?php
-echo ModalAjax::widget([
-    'selector' => 'a.btn-ajax-modal',
-    'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
-    'header' => '',
-    'size' => 'modal-lg',
-    'autoClose' => true,
-    'closeButton' => false,
-    'pjaxContainer' => '#grid-assignment-pjax'
+echo newerton\fancybox3\FancyBox::widget([
+    'target' => '.btn-iframe-modal',
+    'config' => [
+        'type' => 'iframe',
+        'iframe' => [
+            'css' => [
+                'width' => '60%',
+                'height' => '80%'
+            ]
+         ],
+        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-rule-pjax'}); }"),
+    ]
 ]);
 ?>
+
+<?php Pjax::end(); ?>

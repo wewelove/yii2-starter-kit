@@ -13,7 +13,7 @@ use ivankff\yii2ModalAjax\ModalAjax;
 /* @var $usernameField string */
 /* @var $extraColumns string[] */
 
-$this->title = Yii::t('backend', 'Assignments');
+$this->title = Yii::t('backend', 'Assignment');
 $this->params['breadcrumbs'][] = $this->title;
 
 $columns = [
@@ -44,7 +44,7 @@ $columns[] = [
                 ['/user/update', 'id' => $model->id],
                 [
                     'title' => Yii::t('backend', 'User') .': '. $model->username,
-                    'class' => ['btn', 'btn-xs', 'btn-warning', ' btn-ajax-modal']
+                    'class' => ['btn', 'btn-xs', 'btn-warning', ' btn-iframe-modal']
                 ]
             );
         },
@@ -55,7 +55,7 @@ $columns[] = [
                     $url,
                     [
                         'title' => Yii::t('backend', 'User') .': '. $model->username,
-                        'class' => ['btn', 'btn-xs', 'btn-info', ' btn-ajax-modal']
+                        'class' => ['btn', 'btn-xs', 'btn-info', ' btn-iframe-modal']
                     ]
                 );
             }
@@ -65,24 +65,21 @@ $columns[] = [
 ?>
 
 <?php
-Pjax::begin([
-    'id' => 'grid-assignment-pjax',
-    'timeout' => 5000,
-]);
+Pjax::begin(['id' => 'grid-assignment-pjax']);
 ?>
 
 <div class="assignment-index">
     <div class="card">
         <div class="card-header">
-            <?php  echo Html::a(FAS::icon('user-plus') .' '. Yii::t('backend', 'Create'), 
+            <?= Html::a(FAS::icon('user-plus') .' '. Yii::t('backend', 'Create'), 
                 ['/user/create'], 
-                [ 'class' => 'btn btn-success btn-sm btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); 
+                [ 'class' => 'btn btn-success btn-sm btn-iframe-modal', 'title' => Yii::t('backend', 'Create')]); 
             ?>
         </div>
 
         <div class="card-body p-0">
 
-            <?php echo GridView::widget([
+            <?= GridView::widget([
                 'layout' => "{items}\n{pager}",
                 'options' => [
                     'class' => ['gridview', 'table-responsive'],
@@ -99,22 +96,25 @@ Pjax::begin([
         </div>
 
         <div class="card-footer">
-            <?php echo getDataProviderSummary($dataProvider) ?>
+            <?= getDataProviderSummary($dataProvider) ?>
         </div>
 
     </div>
 </div>
 
-<?php Pjax::end(); ?>
-
-<?php
-echo ModalAjax::widget([
-    'selector' => 'a.btn-ajax-modal',
-    'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
-    'header' => '',
-    'size' => 'modal-xl',
-    'autoClose' => true,
-    'closeButton' => false,
-    'pjaxContainer' => '#grid-assignment-pjax'
+<?= newerton\fancybox3\FancyBox::widget([
+    'target' => '.btn-iframe-modal',
+    'config' => [
+        'type' => 'iframe',
+        'iframe' => [
+            'css' => [
+                'width' => '60%',
+                'height' => '80%'
+            ]
+         ],
+        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-assignment-pjax'}); }"),
+    ]
 ]);
 ?>
+
+<?php Pjax::end(); ?>

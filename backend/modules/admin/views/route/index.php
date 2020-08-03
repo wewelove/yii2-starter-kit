@@ -12,14 +12,13 @@ use rmrevin\yii\fontawesome\FAS;
 $this->title = Yii::t('rbac-admin', 'Routes');
 $this->params['breadcrumbs'][] = $this->title;
 
-AnimateAsset::register($this);
+// AnimateAsset::register($this);
 YiiAsset::register($this);
 $opts = Json::htmlEncode([
     'routes' => $routes,
 ]);
 $this->registerJs("var _opts = {$opts};");
 $this->registerJs($this->render('_script.js'));
-$animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>';
 ?>
 <div class="assignment-index">
     <div class="card">
@@ -30,7 +29,7 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
                     <div class="input-group">
                         <input id="inp-route" type="text" class="form-control" placeholder="<?= Yii::t('rbac-admin', 'New route(s)'); ?>">
                         <span class="input-group-append">
-                            <?= Html::a(Yii::t('rbac-admin', 'Add') . $animateIcon, ['create'], [
+                            <?= Html::a(Yii::t('rbac-admin', 'Create'), ['create'], [
                                 'class' => 'btn btn-success',
                                 'id' => 'btn-new',
                             ]); ?>
@@ -54,12 +53,12 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
                 </div>
                 <div class="col-sm-1 text-center">
                     <br><br>
-                    <?= Html::a('&gt;&gt;' . $animateIcon, ['assign'], [
+                    <?= Html::a('&gt;&gt;', ['assign'], [
                         'class' => 'btn btn-success btn-assign',
                         'data-target' => 'available',
                         'title' => Yii::t('rbac-admin', 'Assign'),
                     ]); ?><br><br>
-                    <?= Html::a('&lt;&lt;' . $animateIcon, ['remove'], [
+                    <?= Html::a('&lt;&lt;', ['remove'], [
                         'class' => 'btn btn-danger btn-assign',
                         'data-target' => 'assigned',
                         'title' => Yii::t('rbac-admin', 'Remove'),

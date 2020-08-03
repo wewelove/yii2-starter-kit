@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use mdm\admin\components\RouteRule;
-use mdm\admin\AutocompleteAsset;
 use yii\helpers\Json;
 use mdm\admin\components\Configs;
 
@@ -23,7 +22,7 @@ $js = <<<JS
         source: $source,
     });
 JS;
-AutocompleteAsset::register($this);
+
 $this->registerJs($js);
 ?>
 

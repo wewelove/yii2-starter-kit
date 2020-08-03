@@ -85,9 +85,11 @@ class AssignmentController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = $this->findModel($id);
 
-        return $this->renderAjax('view', [
+        return $this->render('view', [
                 'model' => $model,
                 'idField' => $this->idField,
                 'usernameField' => $this->usernameField,

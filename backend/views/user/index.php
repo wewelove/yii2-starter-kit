@@ -19,23 +19,20 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
-Pjax::begin([
-    'id' => 'grid-user-pjax',
-    'timeout' => 5000,
-]);
+Pjax::begin(['id' => 'grid-user-pjax']);
 ?>
 
 <div class="user-index">
     <div class="card">
         <div class="card-header">
-            <?php  echo Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
+            <?= Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
                 ['create'], 
-                [ 'class' => 'btn btn-success btn-sm btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]); 
+                [ 'class' => 'btn btn-success btn-sm btn-iframe-modal', 'title' => Yii::t('backend', 'Create')]); 
             ?>
         </div>
 
         <div class="card-body p-0">
-            <?php echo GridView::widget([
+            <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'layout' => "{items}\n{pager}",
@@ -93,7 +90,7 @@ Pjax::begin([
                     [
                         'class' => \common\widgets\ActionColumn::class,
                         'header' => Yii::t('common', 'Actions'),
-                        'template' => '{login} {view} {update} {delete}',
+                        'template' => '{login} {assignment} {view} {update} {delete}',
                         'options' => ['style' => 'width: 140px'],
                         'buttons' => [
                             'login' => function ($url) {
@@ -106,6 +103,18 @@ Pjax::begin([
                                     ]
                                 );
                             },
+                            'assignment' => function ($url, $model) {
+                                if($model->status == User::STATUS_ACTIVE) {
+                                    return Html::a(
+                                        FAS::icon('portrait', ['aria' => ['hidden' => true], 'class' => ['fa-fw']]),
+                                        ['/admin/assignment/view', 'id' => $model->id],
+                                        [
+                                            'title' => Yii::t('backend', 'Assignment'),
+                                            'class' => ['btn', 'btn-xs', 'btn-info', ' btn-iframe-modal']
+                                        ]
+                                    );
+                                }
+                            },
                         ],
                         'visibleButtons' => [
                             'login' => Yii::$app->user->can('administrator')
@@ -117,21 +126,24 @@ Pjax::begin([
         </div>
 
         <div class="card-footer">
-            <?php echo getDataProviderSummary($dataProvider) ?>
+            <?= getDataProviderSummary($dataProvider) ?>
         </div>
     </div>
 </div>
 
-<?php Pjax::end(); ?>
-
-<?php
-echo ModalAjax::widget([
-    'selector' => 'a.btn-ajax-modal',
-    'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
-    'header' => '',
-    'size' => 'modal-lg',
-    'autoClose' => true,
-    'closeButton' => false,
-    'pjaxContainer' => '#grid-user-pjax'
+<?= newerton\fancybox3\FancyBox::widget([
+    'target' => '.btn-iframe-modal',
+    'config' => [
+        'type' => 'iframe',
+        'iframe' => [
+            'css' => [
+                'width' => '60%',
+                'height' => '80%'
+            ]
+         ],
+        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-user-pjax'}); }"),
+    ]
 ]);
 ?>
+
+<?php Pjax::end(); ?>

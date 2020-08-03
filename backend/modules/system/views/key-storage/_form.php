@@ -1,43 +1,35 @@
 <?php
 
-use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
-use rmrevin\yii\fontawesome\FAS;
+use yii\bootstrap4\ActiveForm;
 
 /**
- * @var $this  yii\web\View
- * @var $model common\models\KeyStorageItem
- * @var $form  yii\bootstrap4\ActiveForm
+ * @var yii\web\View $this
+ * @var common\models\KeyStorageItem $model
+ * @var yii\bootstrap4\ActiveForm $form
  */
-
 ?>
 
-<?php $form = ActiveForm::begin([
-    'enableClientValidation' => true,
-    'enableAjaxValidation' => false,
-]) ?>
-    <div class="card card-success">
-        <?php if ($model->isNewRecord) : ?>
-        <div class="card-header">
-            <h3 class="card-title">
-                <?php echo Yii::t('backend', 'Create a new key storage item') ?>
-            </h3>
-        </div>
-        <?php endif; ?>
-        <div class="card-body">
-            <?php echo $form->errorSummary($model); ?>
+<div class="key-storage-item-form">
+    <?php
+     $form = ActiveForm::begin([
+        'layout' => ActiveForm::LAYOUT_HORIZONTAL,
+        'enableClientValidation' => true,
+        'enableAjaxValidation' => false
+    ]); 
+    ?>
+        <div class="card">
+            <div class="card-body">
+                <?php echo $form->errorSummary($model); ?>
 
-            <?php echo $form->field($model, 'key')->textInput() ?>
-
-            <?php echo $form->field($model, 'value')->textInput() ?>
-
-            <?php echo $form->field($model, 'comment')->textarea() ?>
+                <?php echo $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
+                <?php echo $form->field($model, 'value')->textarea(['rows' => 6]) ?>
+                <?php echo $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
+                
+            </div>
+            <div class="card-footer">
+                <?php echo Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
         </div>
-        <div class="card-footer">
-            <?php echo Html::submitButton(
-                $model->isNewRecord? FAS::icon('save').' '.Yii::t('backend', 'Create'):FAS::icon('save').' '. Yii::t('backend', 'Save Changes'),
-                ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
-            ) ?>
-        </div>
-    </div>
-<?php ActiveForm::end() ?>
+    <?php ActiveForm::end(); ?>
+</div>

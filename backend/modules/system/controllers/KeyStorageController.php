@@ -2,20 +2,18 @@
 
 namespace backend\modules\system\controllers;
 
-use backend\modules\system\models\search\KeyStorageItemSearch;
-use common\models\KeyStorageItem;
-use common\traits\FormAjaxValidationTrait;
 use Yii;
-use yii\filters\VerbFilter;
+use common\models\KeyStorageItem;
+use backend\modules\system\models\search\KeyStorageItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
  * KeyStorageController implements the CRUD actions for KeyStorageItem model.
  */
 class KeyStorageController extends Controller
 {
-    use FormAjaxValidationTrait;
 
     /** @inheritdoc */
     public function behaviors()
@@ -32,61 +30,76 @@ class KeyStorageController extends Controller
 
     /**
      * Lists all KeyStorageItem models.
-     *
      * @return mixed
      */
     public function actionIndex()
     {
+        $searchModel = new KeyStorageItemSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single KeyStorageItem model.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        $this->layout = '@backend/views/layouts/base';
+
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new KeyStorageItem model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = new KeyStorageItem();
 
-        $this->performAjaxValidation($model);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            $searchModel = new KeyStorageItemSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider->sort = [
-                'defaultOrder' => ['key' => SORT_DESC],
-            ];
-
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'model' => $model,
-            ]);
+            return $this->redirect(['view', 'id' => $model->key]);
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
      * Updates an existing KeyStorageItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param integer $id
-     *
+     * @param string $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+        
         $model = $this->findModel($id);
 
-        $this->performAjaxValidation($model);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['view', 'id' => $model->key]);
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
      * Deletes an existing KeyStorageItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param integer $id
-     *
+     * @param string $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -99,9 +112,7 @@ class KeyStorageController extends Controller
     /**
      * Finds the KeyStorageItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     *
-     * @param integer $id
-     *
+     * @param string $id
      * @return KeyStorageItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -109,8 +120,7 @@ class KeyStorageController extends Controller
     {
         if (($model = KeyStorageItem::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

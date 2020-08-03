@@ -57,9 +57,11 @@ class RuleController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = $this->findModel($id);
 
-        return $this->renderAjax('view', ['model' => $model]);
+        return $this->render('view', ['model' => $model]);
     }
 
     /**
@@ -69,21 +71,17 @@ class RuleController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = new BizRule(null);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Helper::invalidate();
 
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
-
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
-        } else {
-            return $this->renderAjax('create', ['model' => $model,]);
-        }
+            return $this->redirect(['view', 'id' => $model->id]);
+        } 
+        
+        return $this->render('create', ['model' => $model,]);
     }
 
     /**
@@ -94,21 +92,17 @@ class RuleController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = $this->findModel($id);
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Helper::invalidate();
 
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
-
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->renderAjax('update', ['model' => $model,]);
+        return $this->render('update', ['model' => $model,]);
     }
 
     /**

@@ -62,9 +62,11 @@ class ItemController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = $this->findModel($id);
 
-        return $this->renderAjax('view', ['model' => $model]);
+        return $this->render('view', ['model' => $model]);
     }
 
     /**
@@ -74,20 +76,16 @@ class ItemController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = new AuthItem(null);
         $model->type = $this->type;
-        if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
 
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
-        } else {
-            return $this->renderAjax('create', ['model' => $model]);
+        if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        return $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -98,19 +96,15 @@ class ItemController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
+        $this->layout = '@backend/views/layouts/base';
 
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->renderAjax('update', ['model' => $model]);
+        return $this->render('update', ['model' => $model]);
     }
 
     /**

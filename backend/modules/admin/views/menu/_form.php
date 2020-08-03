@@ -4,13 +4,11 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use mdm\admin\models\Menu;
 use yii\helpers\Json;
-use mdm\admin\AutocompleteAsset;
 
 /* @var $this yii\web\View */
 /* @var $model mdm\admin\models\Menu */
 /* @var $form yii\widgets\ActiveForm */
 
-AutocompleteAsset::register($this);
 $opts = Json::htmlEncode([
     'menus' => Menu::getMenuSource(),
     'routes' => Menu::getSavedRoutes(),

@@ -16,10 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
-Pjax::begin([
-    'id' => 'grid-menu-pjax',
-    'timeout' => 5000,
-]);
+Pjax::begin(['id' => 'grid-menu-pjax']);
 ?>
 
 <div class="menu-index">
@@ -27,9 +24,9 @@ Pjax::begin([
         <div class="card-header">
             <?php
             echo Html::a(
-                FAS::icon('plus') . ' ' . Yii::t('rbac-admin', 'Create Menu'),
+                FAS::icon('plus') . ' ' . Yii::t('rbac-admin', 'Create'),
                 ['create'],
-                ['class' => 'btn btn-success btn-sm btn-ajax-modal', 'title' => Yii::t('rbac-admin', 'Create Menu')]
+                ['class' => 'btn btn-success btn-sm btn-iframe-modal', 'title' => Yii::t('rbac-admin', 'Create')]
             );
             ?>
         </div>
@@ -62,7 +59,7 @@ Pjax::begin([
                                     ['create', 'parent' => $model->id],
                                     [
                                         'title' => Yii::t('backend', 'Create'),
-                                        'class' => ['btn', 'btn-xs', 'btn-success', ' btn-ajax-modal']
+                                        'class' => ['btn', 'btn-xs', 'btn-success', ' btn-iframe-modal']
                                     ]
                                 );
                             },
@@ -80,16 +77,20 @@ Pjax::begin([
     </div>
 </div>
 
-<?php Pjax::end(); ?>
-
 <?php
-echo ModalAjax::widget([
-    'selector' => 'a.btn-ajax-modal',
-    'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
-    'header' => '',
-    'size' => 'modal-lg',
-    'autoClose' => true,
-    'closeButton' => false,
-    'pjaxContainer' => '#grid-menu-pjax'
+echo newerton\fancybox3\FancyBox::widget([
+    'target' => '.btn-iframe-modal',
+    'config' => [
+        'type' => 'iframe',
+        'iframe' => [
+            'css' => [
+                'width' => '60%',
+                'height' => '80%'
+            ]
+         ],
+        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-menu-pjax'}); }"),
+    ]
 ]);
 ?>
+
+<?php Pjax::end(); ?>

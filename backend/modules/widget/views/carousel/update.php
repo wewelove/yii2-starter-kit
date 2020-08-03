@@ -5,7 +5,7 @@
  * @var common\models\WidgetCarousel $model
  */
 
-$this->title = Yii::t('backend', 'Update');
+$this->title = Yii::t('backend', 'Update') . ': ' . $model->key;;
 ?>
 <div class="widget-carousel-update">
     <div class="modal-header">

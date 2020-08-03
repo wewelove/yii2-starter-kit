@@ -5,7 +5,7 @@
  * @var common\models\WidgetText $model
  */
 
-$this->title = Yii::t('backend', 'Update');
+$this->title = Yii::t('backend', 'Update') . ': ' . $model->title;;
 ?>
 <div class="widget-text-update">
     <div class="modal-header">

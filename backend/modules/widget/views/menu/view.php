@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
  * @var common\models\WidgetMenu $model
  */
 
-$this->title = Yii::t('backend', 'View');
+$this->title = Yii::t('backend', 'View') . ': ' . $model->title;;
 ?>
 <div class="widget-menu-view">
     <div class="modal-header">

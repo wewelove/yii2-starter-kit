@@ -51,7 +51,9 @@ class CategoryController extends Controller
      */
     public function actionView($id)
     {
-        return $this->renderAjax('view', [
+        $this->layout = '@backend/views/layouts/base';
+
+        return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
 
@@ -64,23 +66,18 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = new ArticleCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
-
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         $categories = ArticleCategory::find()->noParents()->all();
         $categories = ArrayHelper::map($categories, 'id', 'title');
 
-        return $this->renderAjax('create', [
+        return $this->render('create', [
             'model' => $model,
             'categories' => $categories,
         ]);
@@ -95,23 +92,18 @@ class CategoryController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
-
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         $categories = ArticleCategory::find()->noParents()->andWhere(['not', ['id' => $id]])->all();
         $categories = ArrayHelper::map($categories, 'id', 'title');
 
-        return $this->renderAjax('update', [
+        return $this->render('update', [
             'model' => $model,
             'categories' => $categories,
         ]);

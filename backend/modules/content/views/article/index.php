@@ -29,7 +29,7 @@ Pjax::begin(['id' => 'grid-article-pjax']);
         <div class="card-header">
             <?php echo Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
                 ['create'], 
-                ['class' => 'btn btn-success btn-sm btn-iframe-modal', 'data-type' => 'iframe']); 
+                ['class' => 'btn btn-success btn-sm btn-iframe-modal', 'title' => Yii::t('backend', 'Create')]); 
             ?>
         </div>
 

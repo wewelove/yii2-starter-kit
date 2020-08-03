@@ -55,7 +55,9 @@ class MenuController extends Controller
      */
     public function actionView($id)
     {
-        return $this->renderAjax('view', [
+        $this->layout = '@backend/views/layouts/base';
+
+        return $this->render('view', [
                 'model' => $this->findModel($id),
         ]);
     }
@@ -67,31 +69,24 @@ class MenuController extends Controller
      */
     public function actionCreate($parent = null)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = new Menu;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Helper::invalidate();
-
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
-
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
-        } else {
-
-            if($parent) {
-                $parent = Menu::findOne($parent);
-                $model->parent = $parent->id;
-                $model->parent_name = $parent->name;
-            }
-
-            return $this->renderAjax('create', [
-                    'model' => $model,
-            ]);
+            Helper::invalidate();   // 缓存处理
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        if($parent) {
+            $parent = Menu::findOne($parent);
+            $model->parent = $parent->id;
+            $model->parent_name = $parent->name;
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -102,26 +97,21 @@ class MenuController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = $this->findModel($id);
         if ($model->menuParent) {
             $model->parent_name = $model->menuParent->name;
         }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Helper::invalidate();
-
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
-
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
-        } else {
-            return $this->renderAjax('update', [
-                    'model' => $model,
-            ]);
+            Helper::invalidate();   // 缓存处理
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**

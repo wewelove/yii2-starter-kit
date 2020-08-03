@@ -53,6 +53,8 @@ class KeyStorageItem extends ActiveRecord
             'key' => Yii::t('common', 'Key'),
             'value' => Yii::t('common', 'Value'),
             'comment' => Yii::t('common', 'Comment'),
+            'created_at' => Yii::t('common', 'Created At'),
+            'updated_at' => Yii::t('common', 'Updated At'),
         ];
     }
 }

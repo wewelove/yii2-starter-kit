@@ -98,6 +98,7 @@ $config = [
                         'common' => 'common.php',
                         'backend' => 'backend.php',
                         'frontend' => 'frontend.php',
+                        'rbac-admin' => 'rbac-admin.php',
                     ],
                     'on missingTranslation' => [backend\modules\translation\Module::class, 'missingTranslation']
                 ],

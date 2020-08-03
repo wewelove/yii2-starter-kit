@@ -5,7 +5,7 @@
  * @var common\models\WidgetMenu $model
  */
 
-$this->title = Yii::t('backend', 'Update');
+$this->title = Yii::t('backend', 'Update') . ': ' . $model->title;;
 ?>
 <div class="widget-menu-update">
     <div class="modal-header">

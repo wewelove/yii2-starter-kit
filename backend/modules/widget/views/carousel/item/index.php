@@ -12,7 +12,7 @@ use rmrevin\yii\fontawesome\FAS;
  * @var yii\data\ActiveDataProvider $dataProvider
  */
 
-$this->title = Yii::t('backend', 'Widget Carousel Items');
+$this->title = Yii::t('backend', 'Items');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

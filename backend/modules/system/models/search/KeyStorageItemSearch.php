@@ -2,9 +2,10 @@
 
 namespace backend\modules\system\models\search;
 
-use common\models\KeyStorageItem;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\KeyStorageItem;
 
 /**
  * KeyStorageItemSearch represents the model behind the search form about `common\models\KeyStorageItem`.
@@ -17,7 +18,7 @@ class KeyStorageItemSearch extends KeyStorageItem
     public function rules()
     {
         return [
-            [['key', 'value'], 'string'],
+            [['key', 'value', 'comment'], 'safe'],
         ];
     }
 
@@ -50,11 +51,13 @@ class KeyStorageItemSearch extends KeyStorageItem
         }
 
         $query->andFilterWhere([
-            'like', 'key', $this->key,
+            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at,
         ]);
-        $query->andFilterWhere([
-            'like', 'value', $this->value,
-        ]);
+
+        $query->andFilterWhere(['like', 'key', $this->key])
+            ->andFilterWhere(['like', 'value', $this->value])
+            ->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }

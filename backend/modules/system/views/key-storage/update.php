@@ -1,19 +1,23 @@
 <?php
 
 /**
- * @var $this  yii\web\View
- * @var $model common\models\KeyStorageItem
+ * @var yii\web\View $this
+ * @var common\models\KeyStorageItem $model
  */
 
-$this->title = Yii::t('backend', 'Update {modelClass}: ', [
-        'modelClass' => 'Key Storage Item',
-    ]) . ' ' . $model->key;
-
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Key Storage Items'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
-
+$this->title = Yii::t('backend', 'Update');
 ?>
+<div class="key-storage-item-update">
+    <div class="modal-header">
+        <h5 class="modal-title"><?php echo $this->title; ?> </h5>
+    </div>
+    
+    <div class="fancybox-slim-scroll p-3">
 
-<?php echo $this->render('_form', [
-    'model' => $model,
-]) ?>
+    <?php echo $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
+    </div>
+
+</div>

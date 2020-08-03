@@ -5,11 +5,17 @@
  * @var common\models\Page $model
  */
 
+$this->title = Yii::t('backend', 'Create');
 ?>
 <div class="page-create">
+    <div class="modal-header">
+        <h5 class="modal-title"><?php echo $this->title; ?> </h5>
+    </div>
 
-    <?php echo $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="fancybox-slim-scroll p-3">
+        <?php echo $this->render('_form', [
+            'model' => $model,
+        ]) ?>
 
+    </div>
 </div>

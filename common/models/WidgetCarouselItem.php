@@ -143,6 +143,6 @@ class WidgetCarouselItem extends ActiveRecord
      */
     public function getAssetUrl()
     {
-        return Yii::getAlias($this->base_url . $this->path);
+        return Yii::getAlias($this->base_url . '/' . $this->path);
     }
 }

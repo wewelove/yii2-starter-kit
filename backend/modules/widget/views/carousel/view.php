@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
  * @var common\models\WidgetCarousel $model
  */
 
-$this->title = Yii::t('backend', 'View');
+$this->title = Yii::t('backend', 'View') . ': ' . $model->key;
 ?>
 <div class="widget-carousel-view">
     <div class="modal-header">

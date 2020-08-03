@@ -5,7 +5,7 @@
  * @var common\models\Article $model
  */
 
-$this->title = Yii::t('backend', 'Update');
+$this->title = Yii::t('backend', 'Update') . ': ' . $model->title;;
 ?>
 <div class="article-update">
     <div class="modal-header">

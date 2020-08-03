@@ -150,53 +150,73 @@ class m150725_192740_seed_data extends Migration
         $this->insert('{{%key_storage_item}}', [
             'key' => 'backend.theme-skin',
             'value' => 'skin-blue',
-            'comment' => 'skin-blue, skin-black, skin-purple, skin-green, skin-red, skin-yellow'
+            'comment' => 'skin-blue, skin-black, skin-purple, skin-green, skin-red, skin-yellow',
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'backend.layout-fixed',
-            'value' => 1
+            'value' => 1,
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'backend.layout-boxed',
-            'value' => 0
+            'value' => 0,
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'backend.layout-collapsed-sidebar',
-            'value' => 0
+            'value' => 0,
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'frontend.maintenance',
             'value' => 'disabled',
-            'comment' => 'Set it to "enabled" to turn on maintenance mode'
+            'comment' => 'Set it to "enabled" to turn on maintenance mode',
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
         
         $this->insert('{{%key_storage_item}}', [
             'key' => 'adminlte.body-small-text',
-            'value' => 1
+            'value' => 1,
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'adminlte.navbar-fixed',
-            'value' => 1
+            'value' => 1,
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'adminlte.sidebar-fixed',
-            'value' => 1
+            'value' => 1,
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'adminlte.sidebar-legacy',
-            'value' => 1
+            'value' => 1,
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
         $this->insert('{{%key_storage_item}}', [
             'key' => 'adminlte.sidebar-child-indent',
-            'value' => 1
+            'value' => 1,
+            'created_at' => 1596439624,
+            'updated_at' => 1596439624 
         ]);
 
     }

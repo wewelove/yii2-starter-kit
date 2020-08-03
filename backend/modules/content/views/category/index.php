@@ -20,10 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
-Pjax::begin([
-    'id' => 'grid-article-category-pjax',
-    'timeout' => 5000,
-]);
+Pjax::begin(['id' => 'grid-article-category-pjax']);
 ?>
 
 <div class="article-category-index">
@@ -31,7 +28,7 @@ Pjax::begin([
         <div class="card-header">
             <?php echo Html::a(FAS::icon('plus') .' '. Yii::t('backend', 'Create'), 
                 ['create'], 
-                [ 'class' => 'btn btn-success btn-sm btn-ajax-modal', 'title' => Yii::t('backend', 'Create')]);
+                [ 'class' => 'btn btn-success btn-sm btn-iframe-modal', 'title' => Yii::t('backend', 'Create')]);
             ?>
         </div>
 
@@ -79,16 +76,20 @@ Pjax::begin([
 
 </div>
 
-<?php Pjax::end(); ?>
-
 <?php
-echo ModalAjax::widget([
-    'selector' => 'a.btn-ajax-modal',
-    'bootstrapVersion' => ModalAjax::BOOTSTRAP_VERSION_4,
-    'header' => '',
-    'size' => 'modal-lg',
-    'autoClose' => true,
-    'closeButton' => false,
-    'pjaxContainer' => '#grid-article-category-pjax'
+echo newerton\fancybox3\FancyBox::widget([
+    'target' => '.btn-iframe-modal',
+    'config' => [
+        'type' => 'iframe',
+        'iframe' => [
+            'css' => [
+                'width' => '40%',
+                'height' => '60%'
+            ]
+         ],
+        'afterClose' => new \yii\web\JsExpression("function(){ $.pjax.reload({container : '#grid-article-category-pjax'}); }"),
+    ]
 ]);
 ?>
+
+<?php Pjax::end(); ?>

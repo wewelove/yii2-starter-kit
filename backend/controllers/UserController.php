@@ -51,7 +51,9 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        return $this->renderAjax('view', [
+        $this->layout = '@backend/views/layouts/base';
+
+        return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -83,21 +85,16 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = new UserForm();
         $model->setScenario('create');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
-
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->renderAjax('create', [
+        return $this->render('create', [
             'model' => $model,
             'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
         ]);
@@ -110,21 +107,16 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = '@backend/views/layouts/base';
+
         $model = new UserForm();
         $model->setModel($this->findModel($id));
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $response = Yii::$app->response;
-            $response->format = \yii\web\Response::FORMAT_JSON;
-            
-            return [
-                'code' => $response->getStatusCode(),
-                'status' => $response->statusText,
-                'data' => $model
-            ];
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->renderAjax('update', [
+        return $this->render('update', [
             'model' => $model,
             'roles' => ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'name')
         ]);
