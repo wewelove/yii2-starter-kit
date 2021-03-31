@@ -30,7 +30,7 @@ Yii2 应用模板, 基于 [Yii 2 Starter Kit](https://github.com/yii2-starter-ki
 
 ## 功能
 ### 管理后台
-- 后台前端基本 [AdminLTE 3](https://adminlte.io/themes/v3/)
+- 后台前端使用 [AdminLTE 3](https://adminlte.io/themes/v3/) 框架
 - 内容管理组件: 文章, 分类, 静态页面, 前台菜单, 轮播, 文本块
 - 基于键值管理的应用设置
 - [文件管理](https://github.com/MihailDev/yii2-elfinder)
